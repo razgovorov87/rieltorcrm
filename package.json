@@ -1,0 +1,46 @@
+{
+  "name": "rieltorcrm",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "@trevoreyre/autocomplete-vue": "^2.2.0",
+    "axios": "^0.21.4",
+    "core-js": "^3.6.5",
+    "firebase": "^8.2.10",
+    "https": "^1.0.0",
+    "register-service-worker": "^1.7.1",
+    "v-click-outside": "^3.1.2",
+    "v-mask": "^2.2.4",
+    "vue": "^2.6.11",
+    "vue-currency-input": "^1.22.6",
+    "vue-horizontal-scroll": "^0.2.4",
+    "vue-masked-input": "^0.5.2",
+    "vue-my-toasts": "^1.1.0",
+    "vue-router": "^3.2.0",
+    "vue2-collapse": "^1.0.15",
+    "vuedraggable": "^2.24.3",
+    "vuelidate": "^0.7.6",
+    "vuex": "^3.6.2",
+    "vuex-persistedstate": "^4.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss7-compat": "^2.0.4",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-pwa": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "autoprefixer": "^9.8.6",
+    "postcss": "^7.0.35",
+    "sass": "^1.32.0",
+    "sass-loader": "^10.0.0",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.4",
+    "vue-cli-plugin-tailwind": "^2.0.6",
+    "vue-cli-plugin-vuetify": "^2.2.2",
+    "vue-template-compiler": "^2.6.11"
+  }
+}
