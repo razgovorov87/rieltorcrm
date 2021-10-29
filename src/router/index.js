@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
+
 const routes = [
   {
     path: "/login",
@@ -86,7 +87,7 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const requireAuth = to.matched.some((record) => record.meta.auth);
   let currentUser = false;
 

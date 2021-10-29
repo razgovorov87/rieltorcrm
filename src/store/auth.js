@@ -1,5 +1,6 @@
 import axios from "axios";
 import firebase from "firebase/app";
+import router from "../router";
 
 export default {
   state: {
@@ -64,6 +65,7 @@ export default {
         const info = await axios.post(`/fetchInfo`, {
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem('access_token')}`
           },
         });
         commit("setLoggedInUser", info.data);
@@ -124,7 +126,7 @@ export default {
 
     getUid({ state, commit }) {
       const user = state.loggedInUser;
-      return user ? user.uid : null;
+      return user ? user.id : null;
     },
 
     async checkLogin({ dispatch }, login) {
@@ -140,7 +142,8 @@ export default {
     },
 
     async logout({ dispatch, commit }) {
-      commit("clearUserData");
+      commit('clearUserData');
+      router.push('/login');
     },
   },
 };

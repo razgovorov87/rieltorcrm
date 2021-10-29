@@ -34,6 +34,7 @@ export default function axiosSetUp() {
         originalRequest.url.includes("token/refresh")
       ) {
         store.commit("clearUserData");
+        store.dispatch('logout');
         return Promise.reject(error);
       } else if (error.response.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;

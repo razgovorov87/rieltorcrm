@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-screen bg-gray-100">
+  <div v-if="successloadingUser" class="flex h-screen bg-gray-100">
     <Divider />
     <Header v-if="disableHeader" />
     <main
@@ -15,14 +15,16 @@
 <script>
 import Divider from "@/components/Layout/Divider";
 import Header from "@/components/Layout/Header";
+import store from '../store';
 export default {
   name: "App",
   data: () => ({
-    //
+    successloadingUser: false
   }),
 
-  mounted() {
-    this.$store.dispatch("fetchInfo");
+  async created() {
+    const user = await store.dispatch('fetchInfo');
+    this.successloadingUser = true;
   },
 
   computed: {
