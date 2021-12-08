@@ -42,6 +42,7 @@ import ClientsList from "@/components/Clients/ClientsList";
 import ItemDrawer from "@/components/Clients/ItemDrawer";
 import NewClients from "@/components/Clients/NewClients";
 import NoData from "@/components/NoData";
+import { mapState } from "vuex";
 export default {
   data: () => ({
     loading: true,

@@ -1,14 +1,22 @@
 import axios from "axios";
 
-const SERVER_URL = process.env.VUE_APP_API_URL;
-
 export default {
   state: {
     clients: {},
+    freeClients: 0,
   },
   mutations: {
     setClients(state, clients) {
       state.clients = clients;
+    },
+
+    setFreeClients(state, length) {
+      state.freeClients = length;
+    },
+
+    removeClient(state, clientId) {
+      const idx = state.clients.findIndex(client => client.id == clientId);
+      state.clients.splice(idx, 1);
     },
 
     pushClients(state, client) {
@@ -20,6 +28,11 @@ export default {
     },
   },
   actions: {
+    async fetchFreeClients({ dispatch, commit }) {
+      const response = await axios.get(`/fetchFreeClients`);
+      commit('setFreeClients', response.data);
+    },
+
     async addNewClient(
       { dispatch, commit },
       { phone, fio, comment, missedCall, interestingObj }
@@ -62,7 +75,6 @@ export default {
         clientId,
         data: frontData,
       };
-      console.log(data);
       const response = await axios.post(`/saveCriterion`, data, {
         headers: {
           "Content-Type": "application/json",
@@ -77,7 +89,6 @@ export default {
         ...response.data[key],
         id: key,
       }));
-      commit("setClients", result);
       return result;
     },
 
@@ -96,6 +107,7 @@ export default {
         ...response.data[key],
         id: key,
       }));
+      commit("setClients", result);
       return result;
     },
 
@@ -138,16 +150,16 @@ export default {
       });
     },
 
-    async catchNewClient({ dispatch, commit }) {
+    async catchNewClient({ commit, dispatch }) {
       const uid = await dispatch("getUid");
       const data = {
         agentId: uid,
       };
       const item = await axios.post(`/catchNewClient`, data);
-      return item.data;
+      commit('pushClients', item.data);
     },
 
-    async refuseClient({ dispatch }, { cause, otherCause, comment, clientId }) {
+    async refuseClient({ commit ,dispatch }, { cause, otherCause, comment, clientId }) {
       const uid = await dispatch("getUid");
       const data = {
         agentId: uid,
@@ -161,6 +173,7 @@ export default {
           "Content-Type": "application/json",
         },
       });
+      commit('removeClient', clientId);
     },
 
     async removeNewClients({ dispatch }, clients) {
@@ -221,5 +234,6 @@ export default {
 
   getters: {
     clients: (s) => s.clients,
+    freeClients: (s) => s.freeClients,
   },
 };

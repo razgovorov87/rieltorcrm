@@ -9,36 +9,61 @@
     >
       <router-view />
     </main>
+    <v-dialog v-model="showDialog" width="800" persistent>
+      <v-card>
+        <v-card-title>Необходимо начать работу с клиентами</v-card-title>
+        <v-card-text>
+          <transition-group name="list">
+            <ExpiredClientItem
+              v-for="client of expiredClients"
+              :key="client.alertId"
+              :client="client"
+            />
+          </transition-group>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import Divider from "@/components/Layout/Divider";
 import Header from "@/components/Layout/Header";
-import store from '../store';
+import ExpiredClientItem from "@/components/ExpiredClientItem";
+import store from "../store";
+import { mapGetters } from "vuex";
 export default {
   name: "App",
   data: () => ({
-    successloadingUser: false
+    successloadingUser: false,
+    isShowDialog: false,
   }),
 
   async created() {
-    const user = await store.dispatch('fetchInfo');
+    const user = await store.dispatch("fetchInfo");
+    this.$socket.emit("login", { id: user.id });
     this.successloadingUser = true;
   },
 
   computed: {
+    ...mapGetters(["expiredClients"]),
+
+    showDialog() {
+      return this.expiredClients.length != 0;
+    },
+
     disableHeader() {
       return this.$route.path === "/object" ||
         this.$route.path === "/admin/clients" ||
         this.$route.path === "/admin/team" ||
-        this.$route.path === "/reverses"
+        this.$route.path === "/reverses" ||
+        this.$route.path === "/calls"
         ? false
         : true;
     },
   },
 
-  components: { Divider, Header },
+  components: { Divider, Header, ExpiredClientItem },
 };
 </script>
 
@@ -58,6 +83,15 @@ body {
   height: 0;
 }
 
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s;
+}
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+}
+
 /* Track */
 ::-webkit-scrollbar-track {
   -webkit-border-radius: 1px;
@@ -74,3 +108,6 @@ body {
   background: rgba(173, 173, 173, 0.8);
 }
 </style>
+
+
+

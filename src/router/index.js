@@ -76,6 +76,13 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Reverses.vue"),
   },
   {
+    path: "/calls",
+    name: "Звонки",
+    meta: { layout: "main", auth: true },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Calls.vue"),
+  },
+  {
     path: "*",
     redirect: "/login",
   },

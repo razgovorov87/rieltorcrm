@@ -2,7 +2,6 @@ import Alert from "@/components/Alert";
 import Loading from "@/components/Loading";
 import currencyFilter from "@/filters/currency.filter";
 import dateFilter from "@/filters/date.filter";
-import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 import "firebase/storage";
@@ -10,18 +9,23 @@ import vClickOutside from "v-click-outside";
 import Vue from "vue";
 import VueMyToasts from "vue-my-toasts";
 import "vue-my-toasts/dist/vue-my-toasts.css";
+import VueSocketIO from 'vue-socket.io';
 import VueCollapse from "vue2-collapse";
 import Vuelidate from "vuelidate";
 import App from "./App.vue";
 import "./assets/tailwind.css";
 import axiosSetUp from "./axios";
-import config from "./configFirebase";
+import vuetify from './plugins/vuetify';
 import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
+const moment = require('moment')
+require('moment/locale/ru')
 
 axiosSetUp();
-
+Vue.use(require('vue-moment'), {
+  moment
+});
 Vue.component("Loading", Loading);
 Vue.use(VueMyToasts, {
   component: Alert,
@@ -32,6 +36,8 @@ Vue.use(VueMyToasts, {
   },
 });
 
+
+
 Vue.use(vClickOutside);
 Vue.use(VueCollapse);
 
@@ -41,16 +47,21 @@ Vue.filter("date", dateFilter);
 Vue.filter("currency", currencyFilter);
 Vue.use(Vuelidate);
 
-firebase.initializeApp(config);
 
-let app;
-
-firebase.auth().onAuthStateChanged(() => {
-  if (!app) {
-    app = new Vue({
-      router,
+Vue.use(new VueSocketIO({
+  debug: false,
+  connection: process.env.VUE_APP_WS_URL,
+  vuex: {
       store,
-      render: (h) => h(App),
-    }).$mount("#app");
-  }
-});
+      actionPrefix: 'SOCKET_',
+      mutationPrefix: 'SOCKET_'
+  },
+}));
+
+
+new Vue({
+  router,
+  store,
+  vuetify,
+  render: (h) => h(App)
+}).$mount("#app");

@@ -201,8 +201,9 @@
 
 <script>
 import draggable from "vuedraggable";
+import { mapGetters } from "vuex";
 export default {
-  props: ["categories", "clients", "disableBtn"],
+  props: ["categories", "disableBtn"],
 
   data: () => ({
     list: [],
@@ -213,6 +214,12 @@ export default {
     loading: true,
   }),
 
+  watch: {
+    clients() {
+      this.filterClients();
+    },
+  },
+
   mounted() {
     this.filterClients();
     this.loading = false;
@@ -220,35 +227,52 @@ export default {
 
   methods: {
     async addNewItem() {
-      const item = await this.$store.dispatch("catchNewClient");
-      if (item === "empty_list") {
+      if (this.isClientLimit()) {
+        await this.$store.dispatch("catchNewClient");
+        if (item === "empty_list") {
+          this.$toasts.push({
+            type: "error",
+            message: "В базе нет свободных клиентов. Попробуйте позже",
+          });
+          return;
+        }
+      } else {
         this.$toasts.push({
           type: "error",
-          message: "В базе нет свободных клиентов. Попробуйте позже",
+          message: "У вас не может быть больше 10 клиентов в работе",
         });
-        return;
       }
-      this.list.push(item);
+    },
+
+    isClientLimit() {
+      const userClients = this.clients.filter(
+        (client) => client.status != "Прошла сделка"
+      );
+      return userClients < 10;
     },
 
     openItemDrawer(item) {
       this.$emit("openItemDrawer", item);
     },
 
-    log: function (e) {
-      window.console.log(e);
-    },
-
     async filterClients() {
-      const clients = await this.$store.dispatch("fetchUserClients");
-      this.list = clients.filter((item) => item.status === "Не обработано");
-      this.processed = clients.filter((item) => item.status === "В работе");
-      this.view = clients.filter((item) => item.status === "Просмотр квартир");
-      this.success = clients.filter((item) => item.status === "Прошла сделка");
+      this.list = this.clients.filter(
+        (item) => item.status === "Не обработано"
+      );
+      this.processed = this.clients.filter(
+        (item) => item.status === "В работе"
+      );
+      this.view = this.clients.filter(
+        (item) => item.status === "Просмотр квартир"
+      );
+      this.success = this.clients.filter(
+        (item) => item.status === "Прошла сделка"
+      );
     },
   },
 
   computed: {
+    ...mapGetters(["clients"]),
     dragOptions() {
       return {
         animation: 200,

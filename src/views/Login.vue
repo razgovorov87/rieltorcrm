@@ -127,7 +127,19 @@
             ></span>
             <span
               id="checkbox"
-              class="absolute block w-4 h-4 mt-1 rounded-full shadow inset-y-0 focus-within:shadow-outline ml-1 left-0"
+              class="
+                absolute
+                block
+                w-4
+                h-4
+                mt-1
+                rounded-full
+                shadow
+                inset-y-0
+                focus-within:shadow-outline
+                ml-1
+                left-0
+              "
               :class="showPassword ? 'open' : 'bg-white'"
             >
               <input
@@ -153,7 +165,19 @@
         <transition name="opacity" mode="out-in">
           <div
             v-if="!btnLoading"
-            class="bg-dividerBg w-full py-2 rounded-lg font-semibold text-white cursor-pointer select-none text-center flex justify-center"
+            class="
+              bg-dividerBg
+              w-full
+              py-2
+              rounded-lg
+              font-semibold
+              text-white
+              cursor-pointer
+              select-none
+              text-center
+              flex
+              justify-center
+            "
             @click="auth"
           >
             Авторизация
@@ -161,14 +185,26 @@
 
           <div
             v-else
-            class="bg-dividerBg w-full py-2 rounded-lg font-semibold text-white cursor-pointer select-none text-center flex justify-center"
+            class="
+              bg-dividerBg
+              w-full
+              py-2
+              rounded-lg
+              font-semibold
+              text-white
+              cursor-pointer
+              select-none
+              text-center
+              flex
+              justify-center
+            "
           >
             <svg
               class="w-6 animate-spin mr-2"
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
               viewBox="0 0 50 50"
-              style="enable-background:new 0 0 50 50;"
+              style="enable-background: new 0 0 50 50"
               xml:space="preserve"
             >
               <path
