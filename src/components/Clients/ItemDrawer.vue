@@ -1,6 +1,17 @@
 <template>
   <div
-    class="absolute inset-0 ml-divider h-screen z-50 flex items-center justify-center transition overflow-hidden"
+    class="
+      absolute
+      inset-0
+      ml-divider
+      h-screen
+      z-50
+      flex
+      items-center
+      justify-center
+      transition
+      overflow-hidden
+    "
   >
     <div class="w-5/12 h-full bg-white flex flex-col relative shadow-2xl z-20">
       <div class="bg-darkDivider px-8 pt-8 w-full">
@@ -32,7 +43,21 @@
               <span class="cursor-pointer">{{ client.phone }}</span>
             </h1>
             <button
-              class="focus:outline-none rounded-full hover:bg-gray-400 p-1 flex items-center justify-center transition relative flex-shrink-0 w-8 h-8 cursor-pointer"
+              class="
+                focus:outline-none
+                rounded-full
+                hover:bg-gray-400
+                p-1
+                flex
+                items-center
+                justify-center
+                transition
+                relative
+                flex-shrink-0
+                w-8
+                h-8
+                cursor-pointer
+              "
               @click="infoMenu = !infoMenu"
             >
               <svg
@@ -51,10 +76,26 @@
               </svg>
               <div
                 v-if="infoMenu"
-                class="absolute right-full mr-1 bg-white top-1/2 rounded flex flex-col"
+                class="
+                  absolute
+                  right-full
+                  mr-1
+                  bg-white
+                  top-1/2
+                  rounded
+                  flex flex-col
+                "
               >
                 <span
-                  class="text-gray-400 font-semibold px-4 py-1 text-sm hover:bg-gray-100 rounded"
+                  class="
+                    text-gray-400
+                    font-semibold
+                    px-4
+                    py-1
+                    text-sm
+                    hover:bg-gray-100
+                    rounded
+                  "
                   @click="refuseDialog = true"
                   >Отказаться</span
                 >
@@ -77,7 +118,19 @@
           </div>
           <div
             v-else
-            class="w-full rounded text-white text-lg font-bold relative pb-2 flex justify-between items-center pr-2 cursor-pointer"
+            class="
+              w-full
+              rounded
+              text-white text-lg
+              font-bold
+              relative
+              pb-2
+              flex
+              justify-between
+              items-center
+              pr-2
+              cursor-pointer
+            "
             @click="categoriesMenu = true"
           >
             <span>{{ categoryName }}</span>
@@ -117,7 +170,17 @@
               </div>
             </transition>
             <div
-              class="absolute bottom-0 left-0 w-full h-1 bg-dividerBg rounded-xl flex z-10"
+              class="
+                absolute
+                bottom-0
+                left-0
+                w-full
+                h-1
+                bg-dividerBg
+                rounded-xl
+                flex
+                z-10
+              "
             >
               <div
                 class="w-1/3 bg-blue-500 rounded-l-xl"
@@ -135,7 +198,13 @@
           </div>
         </div>
         <horizontal-scroll
-          class="flex flex-nowrap whitespace-nowrap overflow-x-auto space-x-3 select-none"
+          class="
+            flex flex-nowrap
+            whitespace-nowrap
+            overflow-x-auto
+            space-x-3
+            select-none
+          "
         >
           <span
             v-for="(tab, idx) in tabs"
@@ -186,10 +255,30 @@
       <transition name="slideUp">
         <div
           v-if="saveItem || saveBlock"
-          class="flex-shrink-0 w-full h-divider border-t flex items-center px-8 bg-white"
+          class="
+            flex-shrink-0
+            w-full
+            h-divider
+            border-t
+            flex
+            items-center
+            px-8
+            bg-white
+          "
         >
           <button
-            class="bg-blue-600 text-white font-semibold focus:outline-none py-2 px-4 transition hover:bg-blue-500 focus:ring-2 rounded"
+            class="
+              bg-blue-600
+              text-white
+              font-semibold
+              focus:outline-none
+              py-2
+              px-4
+              transition
+              hover:bg-blue-500
+              focus:ring-2
+              rounded
+            "
             @click="saveEdit"
           >
             Сохранить
@@ -212,7 +301,16 @@
 
     <div
       v-if="objectListDialog"
-      class="absolute inset-0 z-50 flex items-center justify-center py-10 bg-black bg-opacity-30"
+      class="
+        absolute
+        inset-0
+        z-50
+        flex
+        items-center
+        justify-center
+        py-10
+        bg-black bg-opacity-30
+      "
     >
       <div class="bg-white w-full h-full my-10 mx-10 shadow-lg">
         <ObjectList

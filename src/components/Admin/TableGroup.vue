@@ -1,7 +1,14 @@
 <template>
   <div class="w-full flex flex-col bg-gray-200">
     <div
-      class="flex items-center px-6 py-2 cursor-pointer border-b border-gray-300"
+      class="
+        flex
+        items-center
+        px-6
+        py-2
+        cursor-pointer
+        border-b border-gray-300
+      "
       @click="isOpen = !isOpen"
     >
       <svg
@@ -21,12 +28,35 @@
       </svg>
       <div class="flex shadow-md">
         <span
-          class="rounded text-white px-4 py-1 font-medium select-none rounded-r-none"
+          class="
+            rounded
+            text-white
+            px-4
+            py-1
+            font-medium
+            select-none
+            rounded-r-none
+          "
+          style="
+            border-top-right-radius: 0px !important;
+            border-bottom-right-radius: 0px !important;
+          "
           :class="'bg-' + category.color"
           >{{ category.title }}</span
         >
         <span
-          class="text-sm py-1 px-2 flex items-center justify-center rounded-r text-white font-medium border-l border-white border-opacity-25"
+          class="
+            text-sm
+            py-1
+            px-2
+            flex
+            items-center
+            justify-center
+            rounded-r
+            text-white
+            font-medium
+            border-l border-white border-opacity-25
+          "
           :class="'bg-' + category.color"
         >
           {{ items.filter((item) => item.status === category.title).length }}
@@ -39,7 +69,13 @@
           items.filter((item) => item.status === category.title)
         )"
         :key="client.id"
-        class="border-b border-gray-200 hover:bg-gray-100 flex items-center cursor-pointer"
+        class="
+          border-b border-gray-200
+          hover:bg-gray-100
+          flex
+          items-center
+          cursor-pointer
+        "
         @click="$emit('openClient', client)"
       >
         <td class="w-2/12 py-3 px-6 text-left">
@@ -57,7 +93,15 @@
         </td>
 
         <td
-          class="w-1/12 py-3 px-6 text-center flex justify-center whitespace-nowrap"
+          class="
+            w-1/12
+            py-3
+            px-6
+            text-center
+            flex
+            justify-center
+            whitespace-nowrap
+          "
         >
           <div class="flex items-center">
             <span class="font-medium">{{ client.fio }}</span>
@@ -108,7 +152,18 @@
           <div class="flex items-center justify-center">
             <span
               v-if="client.reserves != null && client.reserves.length >= 3"
-              class="font-medium p-2 bg-red-600 rounded-full h-8 w-8 flex items-center justify-center text-white"
+              class="
+                font-medium
+                p-2
+                bg-red-600
+                rounded-full
+                h-8
+                w-8
+                flex
+                items-center
+                justify-center
+                text-white
+              "
               >{{ client.reserves.length }}</span
             >
             <span v-else class="font-medium">{{
@@ -130,7 +185,13 @@
           <div class="flex items-center justify-center">
             <div
               v-if="refusedGroup"
-              class="w-5 mr-2 transform hover:text-blue-500 hover:scale-110 cursor-pointer"
+              class="
+                w-5
+                mr-2
+                transform
+                hover:text-blue-500 hover:scale-110
+                cursor-pointer
+              "
               @click.stop="returnClientToStart(client)"
             >
               <svg
@@ -149,7 +210,13 @@
             </div>
 
             <div
-              class="w-5 mr-2 transform hover:text-blue-500 hover:scale-110 cursor-pointer"
+              class="
+                w-5
+                mr-2
+                transform
+                hover:text-blue-500 hover:scale-110
+                cursor-pointer
+              "
               @click.stop="$emit('switchAgent', client)"
             >
               <svg
@@ -187,7 +254,13 @@
 						</div> -->
 
             <div
-              class="w-4 mr-2 transform hover:text-red-500 hover:scale-110 cursor-pointer"
+              class="
+                w-4
+                mr-2
+                transform
+                hover:text-red-500 hover:scale-110
+                cursor-pointer
+              "
               @click.stop="removeClient($event, client)"
             >
               <svg
@@ -231,7 +304,7 @@ export default {
     },
 
     sortToDate(arr) {
-      arr.sort(function(a, b) {
+      arr.sort(function (a, b) {
         return new Date(b.createdAt) - new Date(a.createdAt);
       });
 

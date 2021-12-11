@@ -30,7 +30,7 @@ export default function axiosSetUp() {
     async function(error) {
       const originalRequest = error.config;
       if (
-        error.response.status === 401 &&
+        (error.response.status === 401 || error.response.status === 400) &&
         originalRequest.url.includes("token/refresh")
       ) {
         store.commit("clearUserData");

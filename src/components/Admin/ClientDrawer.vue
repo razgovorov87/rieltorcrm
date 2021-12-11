@@ -2,41 +2,101 @@
   <div class="absolute inset-0 z-50 flex justify-end overflow-hidden">
     <div class="flex flex-col w-2/4 h-screen bg-white shadow-2xl z-30">
       <div class="border-b p-5 flex justify-between items-center">
-        <span class="text-xl font-medium select-none flex-grow">Добавление клиента</span>
-
+        <span class="text-xl font-medium select-none flex-grow"
+          >Добавление клиента</span
+        >
 
         <div class="flex flex-col mr-6">
           <label class="flex justify-start items-center py-1 px-3 rounded">
-            <div class="bg-white border-2 rounded-full border-red-600 w-5 h-5 flex flex-shrink-0 justify-center items-center mr-2">
-              <input v-model="missedCall" type="checkbox" class="opacity-0 absolute" 
-              @change=" () => {
-                confirmCall = !missedCall
-              }">
-              <svg class="hidden w-3 h-3 text-red-600 pointer-events-none" viewBox="0 0 120 120">
+            <div
+              class="
+                bg-white
+                border-2
+                rounded-full
+                border-red-600
+                w-5
+                h-5
+                flex flex-shrink-0
+                justify-center
+                items-center
+                mr-2
+              "
+            >
+              <input
+                v-model="missedCall"
+                type="checkbox"
+                class="opacity-0 absolute"
+                @change="
+                  () => {
+                    confirmCall = !missedCall;
+                  }
+                "
+              />
+              <svg
+                class="hidden w-3 h-3 text-red-600 pointer-events-none"
+                viewBox="0 0 120 120"
+              >
                 <circle cx="60" cy="60" r="50" fill="darkRed" />
               </svg>
             </div>
-            <div class="select-none font-medium text-sm text-red-600">Пропущенный</div>
+            <div class="select-none font-medium text-sm text-red-600">
+              Пропущенный
+            </div>
           </label>
           <label class="flex justify-start items-center py-1 px-3 rounded">
-            <div class="bg-white border-2 rounded-full border-green-600 w-5 h-5 flex flex-shrink-0 justify-center items-center mr-2">
-              <input v-model="confirmCall" type="checkbox" class="opacity-0 absolute" 
-              @change=" () => {
-                missedCall = !confirmCall
-              }">
-              <svg class="hidden w-3 h-3 text-red-600 pointer-events-none" viewBox="0 0 120 120">
+            <div
+              class="
+                bg-white
+                border-2
+                rounded-full
+                border-green-600
+                w-5
+                h-5
+                flex flex-shrink-0
+                justify-center
+                items-center
+                mr-2
+              "
+            >
+              <input
+                v-model="confirmCall"
+                type="checkbox"
+                class="opacity-0 absolute"
+                @change="
+                  () => {
+                    missedCall = !confirmCall;
+                  }
+                "
+              />
+              <svg
+                class="hidden w-3 h-3 text-red-600 pointer-events-none"
+                viewBox="0 0 120 120"
+              >
                 <circle cx="60" cy="60" r="50" fill="green" />
               </svg>
             </div>
-            <div class="select-none font-medium text-sm text-green-600">Принятый</div>
+            <div class="select-none font-medium text-sm text-green-600">
+              Принятый
+            </div>
           </label>
         </div>
 
         <div class="flex items-center">
           <div
-            class="mr-4 border rounded font-medium px-2 py-1 border-gray-300 select-none transition"
+            class="
+              mr-4
+              border
+              rounded
+              font-medium
+              px-2
+              py-1
+              border-gray-300
+              select-none
+              transition
+            "
             :class="{
-              'border-blue-700 text-white bg-blue-700 hover:shadow-xl cursor-pointer': formVerify,
+              'border-blue-700 text-white bg-blue-700 hover:shadow-xl cursor-pointer':
+                formVerify,
               'text-gray-500': !formVerify,
             }"
             @click="addNewUser"
@@ -66,7 +126,20 @@
           <v-collapse-wrapper class="flex flex-col" :active="true">
             <div
               v-collapse-toggle
-              class="px-5 py-2 bg-gray-200 font-medium text-gray-600 cursor-pointer flex justify-between items-center hover:bg-gray-300 transition mb-1"
+              class="
+                px-5
+                py-2
+                bg-gray-200
+                font-medium
+                text-gray-600
+                cursor-pointer
+                flex
+                justify-between
+                items-center
+                hover:bg-gray-300
+                transition
+                mb-1
+              "
             >
               <span class="select-none">Основная информация</span>
               <span>
@@ -86,10 +159,15 @@
             </div>
             <div v-collapse-content>
               <div class="px-6 py-4 flex flex-col space-y-4">
-
                 <div class="flex items-center">
                   <label
-                    class="flex-shrink-0 w-1/3 text-gray-500 font-medium required"
+                    class="
+                      flex-shrink-0
+                      w-1/3
+                      text-gray-500
+                      font-medium
+                      required
+                    "
                     >Телефон</label
                   >
                   <masked-input
@@ -97,31 +175,60 @@
                     type="text"
                     mask="\+\7 (111) 111 11-11"
                     placeholder="+7 (XXX) XXX-XX-XX"
-                    class="flex-grow border-2 focus:outline-none py-1 px-3 rounded"
+                    class="
+                      flex-grow
+                      border-2
+                      focus:outline-none
+                      py-1
+                      px-3
+                      rounded
+                    "
+                    style="border: 2px solid #e5e7eb"
                   />
                 </div>
 
                 <div class="flex items-center">
-                  <label class="flex-shrink-0 w-1/3 text-gray-500 font-medium">ФИО</label
+                  <label class="flex-shrink-0 w-1/3 text-gray-500 font-medium"
+                    >ФИО</label
                   >
                   <input
                     v-model="fio"
                     type="text"
-                    class="flex-grow border-2 focus:outline-none py-1 px-3 rounded"
+                    class="
+                      flex-grow
+                      border-2
+                      focus:outline-none
+                      py-1
+                      px-3
+                      rounded
+                    "
+                    style="border: 2px solid #e5e7eb"
                     placeholder="Иван Иванов"
                   />
                 </div>
 
                 <div class="flex">
-                  <label class="flex-shrink-0 w-1/3 text-gray-500 font-medium">Комментарий</label
+                  <label class="flex-shrink-0 w-1/3 text-gray-500 font-medium"
+                    >Комментарий</label
                   >
-                  <textarea 
+                  <textarea
                     v-model="comment"
-                    rows="3" 
-                    class="w-full border-2 rounded shadow h-full px-2 py-1 focus:outline-none focus:border-blue-300 flex" 
+                    rows="3"
+                    class="
+                      w-full
+                      border-2
+                      rounded
+                      shadow
+                      h-full
+                      px-2
+                      py-1
+                      focus:outline-none focus:border-blue-300
+                      flex
+                    "
                     @keydown.enter.exact.prevent
-                    @keydown.enter.shift.exact="newline">
-                </textarea>
+                    @keydown.enter.shift.exact="newline"
+                  >
+                  </textarea>
                 </div>
 
                 <div class="flex items-center">
@@ -130,7 +237,15 @@
                   >
                   <span
                     v-if="!interestingObj"
-                    class="flex items-center transition text-gray-500 font-medium cursor-pointer hover:text-gray-600"
+                    class="
+                      flex
+                      items-center
+                      transition
+                      text-gray-500
+                      font-medium
+                      cursor-pointer
+                      hover:text-gray-600
+                    "
                     @click="objectListDialog = true"
                     ><svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -150,7 +265,13 @@
                   >
                   <div
                     v-else
-                    class="flex items-center text-gray-500 border-b border-gray-400 cursor-pointer"
+                    class="
+                      flex
+                      items-center
+                      text-gray-500
+                      border-b border-gray-400
+                      cursor-pointer
+                    "
                     @click="objectListDialog = true"
                   >
                     <span class="font-medium">{{ interestingObj.adress }}</span>
@@ -170,7 +291,6 @@
                     </svg>
                   </div>
                 </div>
-              
               </div>
             </div>
           </v-collapse-wrapper>
@@ -181,7 +301,16 @@
 
     <div
       v-if="objectListDialog"
-      class="absolute inset-0 z-50 flex items-center justify-center py-10 bg-black bg-opacity-30"
+      class="
+        absolute
+        inset-0
+        z-50
+        flex
+        items-center
+        justify-center
+        py-10
+        bg-black bg-opacity-30
+      "
     >
       <div class="bg-white w-full h-full my-10 mx-10 shadow-lg">
         <ObjectList
@@ -226,7 +355,7 @@ export default {
 
   methods: {
     newline() {
-        this.value = `${this.value}\n`;
+      this.value = `${this.value}\n`;
     },
     async addNewUser() {
       if (!this.formVerify) return;
@@ -241,12 +370,12 @@ export default {
 
         const response = await this.$store.dispatch("addNewClient", formData);
 
-        if(response === 'dublicatePhone') {
-            this.$toasts.push({
-              type: "error",
-              message: "Клиент с таким номером телефона уже существует",
-            });
-            return
+        if (response === "dublicatePhone") {
+          this.$toasts.push({
+            type: "error",
+            message: "Клиент с таким номером телефона уже существует",
+          });
+          return;
         }
 
         this.$toasts.push({

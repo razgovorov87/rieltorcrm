@@ -7,7 +7,7 @@ const routes = [
   {
     path: "/login",
     name: "Авторизация",
-    meta: { layout: "auth" },
+    meta: { layout: "auth"},
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Login.vue"),
   },

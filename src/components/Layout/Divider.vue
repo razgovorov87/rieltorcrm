@@ -4,11 +4,21 @@
     <nav class="flex flex-col w-full items-center justify-start mt-2 flex-grow">
       <router-link
         to="/"
-        class="py-2 flex flex-col items-center text-gray-400 outline-none hover:text-white transition w-full"
+        class="
+          py-2
+          flex flex-col
+          items-center
+          text-gray-400
+          outline-none
+          hover:text-white
+          transition
+          w-full
+          group
+        "
         exact
       >
         <svg
-          class="w-8"
+          class="w-8 text-gray-400 group-hover:text-white"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -21,16 +31,34 @@
             d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
           />
         </svg>
-        <span class="text-xs font-semibold mt-1">Клиенты</span>
+        <span
+          class="
+            text-xs text-gray-400
+            font-semibold
+            mt-1
+            group-hover:text-white
+          "
+          >Клиенты</span
+        >
       </router-link>
 
       <router-link
         to="/object"
-        class="py-2 flex flex-col items-center text-gray-400 outline-none hover:text-white transition w-full"
+        class="
+          py-2
+          flex flex-col
+          items-center
+          text-gray-400
+          outline-none
+          hover:text-white
+          transition
+          w-full
+          group
+        "
         exact
       >
         <svg
-          class="w-8"
+          class="w-8 text-gray-400 group-hover:text-white"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -43,17 +71,35 @@
             d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
           />
         </svg>
-        <span class="text-xs font-semibold mt-1">Объекты</span>
+        <span
+          class="
+            text-xs text-gray-400
+            font-semibold
+            mt-1
+            group-hover:text-white
+          "
+          >Объекты</span
+        >
       </router-link>
 
       <router-link
         to="/reverses"
-        class="py-2 flex flex-col items-center text-gray-400 outline-none hover:text-white transition w-full"
+        class="
+          py-2
+          flex flex-col
+          items-center
+          text-gray-400
+          outline-none
+          hover:text-white
+          transition
+          w-full
+          group
+        "
         exact
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="w-8"
+          class="w-8 text-gray-400 group-hover:text-white"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -66,8 +112,14 @@
           />
         </svg>
         <span
-          class="text-xs font-semibold mt-1 truncate"
-          style="max-width: 70px;"
+          class="
+            text-xs text-gray-400
+            font-semibold
+            mt-1
+            truncate
+            group-hover:text-white
+          "
+          style="max-width: 70px"
           >Просмотры</span
         >
       </router-link>
@@ -80,21 +132,39 @@
 
       <router-link
         to="/calls"
-        class="py-2 flex flex-col items-center text-gray-400 outline-none hover:text-white transition w-full"
+        class="
+          py-2
+          flex flex-col
+          items-center
+          text-gray-400
+          outline-none
+          hover:text-white
+          transition
+          w-full
+          group
+        "
         exact
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="w-8"
+          class="w-8 text-gray-400 group-hover:text-white"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
         >
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          <path
+            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+          />
         </svg>
         <span
-          class="text-xs font-semibold mt-1 truncate"
-          style="max-width: 60px;"
+          class="
+            text-xs text-gray-400
+            font-semibold
+            mt-1
+            truncate
+            group-hover:text-white
+          "
+          style="max-width: 60px"
           >Звонки</span
         >
       </router-link>
@@ -102,12 +172,22 @@
       <router-link
         v-if="checkAdmin"
         to="/admin/clients"
-        class="py-2 flex flex-col items-center text-gray-400 outline-none hover:text-white transition w-full"
+        class="
+          py-2
+          flex flex-col
+          items-center
+          text-gray-400
+          outline-none
+          hover:text-white
+          transition
+          w-full
+          group
+        "
         exact
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="w-8"
+          class="w-8 text-gray-400 group-hover:text-white"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -120,8 +200,14 @@
           />
         </svg>
         <span
-          class="text-xs font-semibold mt-1 text-center"
-          style="max-width: 60px;"
+          class="
+            text-xs
+            font-semibold
+            mt-1
+            text-center text-gray-400
+            group-hover:text-white
+          "
+          style="max-width: 60px"
           >База клиентов</span
         >
       </router-link>
@@ -129,12 +215,22 @@
       <router-link
         v-if="checkAdmin"
         to="/admin/team"
-        class="py-2 flex flex-col items-center text-gray-400 outline-none hover:text-white transition w-full"
+        class="
+          py-2
+          flex flex-col
+          items-center
+          text-gray-400
+          outline-none
+          hover:text-white
+          transition
+          w-full
+          group
+        "
         exact
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="w-8"
+          class="w-8 text-gray-400 group-hover:text-white"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -147,8 +243,14 @@
           />
         </svg>
         <span
-          class="text-xs font-semibold mt-1 truncate"
-          style="max-width: 60px;"
+          class="
+            text-xs text-gray-400
+            font-semibold
+            mt-1
+            truncate
+            group-hover:text-white
+          "
+          style="max-width: 60px"
           >Агенты</span
         >
       </router-link>
@@ -156,12 +258,22 @@
       <router-link
         v-if="checkAdmin"
         to="/admin/archive"
-        class="py-2 flex flex-col items-center text-gray-400 outline-none hover:text-white transition w-full"
+        class="
+          py-2
+          flex flex-col
+          items-center
+          text-gray-400
+          outline-none
+          hover:text-white
+          transition
+          w-full
+          group
+        "
         exact
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="w-8"
+          class="w-8 text-gray-400 group-hover:text-white"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -174,8 +286,14 @@
           />
         </svg>
         <span
-          class="text-xs font-semibold mt-1 text-center"
-          style="max-width: 60px;"
+          class="
+            text-xs
+            font-semibold
+            mt-1
+            text-center text-gray-400
+            group-hover:text-white
+          "
+          style="max-width: 60px"
           >Архив клиентов</span
         >
       </router-link>
@@ -191,11 +309,22 @@
       <router-link
         id="link_with_popover"
         to="#"
-        class="py-2 flex flex-col items-center text-gray-400 outline-none hover:text-white transition w-full relative"
+        class="
+          py-2
+          flex flex-col
+          items-center
+          text-gray-400
+          outline-none
+          hover:text-white
+          transition
+          w-full
+          relative
+          group
+        "
         exact
       >
         <svg
-          class="w-9"
+          class="w-9 text-gray-400 group-hover:text-white"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -209,7 +338,23 @@
           />
         </svg>
         <span
-          class="popover absolute left-full bg-darkDivider shadow-lg top-1/2 rounded transform -translate-y-1/2 translate-x-2 text-white text-sm py-1 px-3"
+          class="
+            popover
+            absolute
+            left-full
+            bg-darkDivider
+            shadow-lg
+            top-1/2
+            rounded
+            transform
+            -translate-y-1/2
+            translate-x-2
+            text-white text-sm
+            py-1
+            px-3
+            text-gray-400
+            group-hover:text-white
+          "
           >Тех.поддержка</span
         >
       </router-link>
@@ -217,7 +362,18 @@
       <button
         id="link_with_popover"
         to="#"
-        class="py-4 flex flex-col items-center text-gray-400 outline-none hover:text-white transition w-full relative focus:outline-none"
+        class="
+          py-4
+          flex flex-col
+          items-center
+          text-gray-400
+          outline-none
+          hover:text-white
+          transition
+          w-full
+          relative
+          focus:outline-none
+        "
         exact
         @click="logout"
       >
@@ -236,7 +392,21 @@
           />
         </svg>
         <span
-          class="popover absolute left-full bg-darkDivider shadow-lg top-1/2 rounded transform -translate-y-1/2 translate-x-2 text-white text-sm py-1 px-3"
+          class="
+            popover
+            absolute
+            left-full
+            bg-darkDivider
+            shadow-lg
+            top-1/2
+            rounded
+            transform
+            -translate-y-1/2
+            translate-x-2
+            text-white text-sm
+            py-1
+            px-3
+          "
           >Выйти</span
         >
       </button>

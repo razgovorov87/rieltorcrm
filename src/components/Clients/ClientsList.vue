@@ -227,15 +227,9 @@ export default {
 
   methods: {
     async addNewItem() {
-      if (this.isClientLimit()) {
+      const limit = this.isClientLimit();
+      if (limit) {
         await this.$store.dispatch("catchNewClient");
-        if (item === "empty_list") {
-          this.$toasts.push({
-            type: "error",
-            message: "В базе нет свободных клиентов. Попробуйте позже",
-          });
-          return;
-        }
       } else {
         this.$toasts.push({
           type: "error",
@@ -248,7 +242,7 @@ export default {
       const userClients = this.clients.filter(
         (client) => client.status != "Прошла сделка"
       );
-      return userClients < 10;
+      return userClients.length < 10;
     },
 
     openItemDrawer(item) {

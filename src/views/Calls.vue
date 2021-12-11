@@ -9,14 +9,20 @@
           offset-y
         >
           <template v-slot:activator="{ on, attrs }">
-            <v-btn
+            <div
               class="
+                flex
+                items-center
+                px-2
                 bg-white bg-opacity-25
                 text-white
                 font-bold
                 tracking-tighter
                 capitalize
                 rounded-xl
+                text-xs
+                transition
+                hover:bg-opacity-40
               "
               color="tranparent"
               depressed
@@ -28,8 +34,8 @@
                 Агент:
                 {{ selectedAgent["name"] + " " + selectedAgent["surname"] }}
               </span>
-              <v-icon right> mdi-chevron-down </v-icon>
-            </v-btn>
+              <v-icon right style="color: white"> mdi-chevron-down </v-icon>
+            </div>
           </template>
           <v-list dense>
             <v-list-item
@@ -44,25 +50,27 @@
           </v-list>
         </v-menu>
 
-        <v-btn
+        <div
           class="
             flex
             items-center
             mr-2
+            px-4
             bg-white bg-opacity-25
             text-white
             font-bold
             tracking-tighter
             capitalize
             rounded-xl
+            text-xs
+            cursor-pointer
+            transition
+            hover:bg-opacity-40
           "
-          color="tranparent"
-          depressed
-          small
           @click="setToday"
         >
           <span>Сегодня</span>
-        </v-btn>
+        </div>
 
         <div
           class="
@@ -81,7 +89,11 @@
           "
           @click="$refs.calendar.prev()"
         >
-          <v-icon left class="m-0 text-lg font-bold text-white px-1">
+          <v-icon
+            style="color: white"
+            left
+            class="m-0 text-lg font-bold text-white px-1"
+          >
             mdi-arrow-left
           </v-icon>
         </div>
@@ -122,7 +134,11 @@
           "
           @click="$refs.calendar.next()"
         >
-          <v-icon right class="m-0 text-lg font-bold text-white px-1">
+          <v-icon
+            style="color: white"
+            right
+            class="m-0 text-lg font-bold text-white px-1"
+          >
             mdi-arrow-right
           </v-icon>
         </div>
@@ -160,47 +176,66 @@ export default {
 
   async mounted() {
     await this.getEvents();
-    this.$refs.calendar.checkChange();
+    if (this.events.length) {
+      this.$refs.calendar.checkChange();
+    }
   },
 
   methods: {
     async getEvents() {
       const result = await this.$store.dispatch("getCalls");
-      Object.keys(result).forEach((authorId) => {
-        const events = [];
-        Object.keys(result[authorId]["overallCalls"]).forEach((key) => {
-          events.push({
-            name: `Принято: ${this.calcMissedCalls(
+      if (Object.keys(result).length) {
+        Object.keys(result).forEach((authorId) => {
+          const events = [];
+          Object.keys(result[authorId]["overallCalls"]).forEach((key) => {
+            const missedCalls = this.calcMissedCalls(
               result[authorId]["overallCalls"][key]
-            )}`,
-            color: "bg-green-200",
-            timed: false,
-            start: Date.parse(
-              result[authorId]["overallCalls"][key][0]["createdAt"]
-            ),
+            );
+
+            const notMissedCalls = this.calcNotMissedCalls(
+              result[authorId]["overallCalls"][key]
+            );
+
+            const percent =
+              missedCalls != 0 ? (notMissedCalls / missedCalls) * 100 : 100;
+
+            events.push({
+              name: `Принято: ${notMissedCalls}`,
+              color: "bg-green-200",
+              timed: false,
+              start: Date.parse(
+                result[authorId]["overallCalls"][key][0]["createdAt"]
+              ),
+            });
+            events.push({
+              name: `Пропущено: ${missedCalls}`,
+              color: "bg-red-200",
+              timed: false,
+              start: Date.parse(
+                result[authorId]["overallCalls"][key][0]["createdAt"]
+              ),
+            });
+            events.push({
+              name: `% принятых: ${percent}%`,
+              color: "bg-gray-300",
+              timed: false,
+              start: Date.parse(
+                result[authorId]["overallCalls"][key][0]["createdAt"]
+              ),
+            });
           });
-          events.push({
-            name: `Пропущено: ${this.calcNotMissedCalls(
-              result[authorId]["overallCalls"][key]
-            )}`,
-            color: "bg-red-200",
-            timed: false,
-            start: Date.parse(
-              result[authorId]["overallCalls"][key][0]["createdAt"]
-            ),
+
+          this.agents.push({
+            authorId,
+            name: result[authorId]["authorName"],
+            surname: result[authorId]["authorSurname"],
+            calls: result[authorId]["overallCalls"],
+            events: events,
           });
         });
 
-        this.agents.push({
-          authorId,
-          name: result[authorId]["authorName"],
-          surname: result[authorId]["authorSurname"],
-          calls: result[authorId]["overallCalls"],
-          events: events,
-        });
-      });
-
-      this.selectedAgent = this.agents[0];
+        this.selectedAgent = this.agents[0];
+      }
     },
 
     getUserEvents(selectedAgent) {
@@ -315,6 +350,7 @@ export default {
   padding: 0 !important;
   padding-left: 5px !important;
   display: flex;
+  color: black !important;
   align-items: center;
 }
 
@@ -333,5 +369,8 @@ export default {
 }
 .v-event.bg-green-200::before {
   background-color: green;
+}
+.v-event.bg-gray-300::before {
+  background-color: #6b7280;
 }
 </style>
