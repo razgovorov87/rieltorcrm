@@ -124,7 +124,7 @@ export default {
   methods: {
     onWork() {
       this.$store.dispatch("expiredClientOnWork", this.client["alertId"]);
-      this.$socket.emit("alert", {
+      this.$socket.client.emit("alert", {
         alertId: this.client["alertId"],
         readed: true,
       });
@@ -140,7 +140,7 @@ export default {
         comment: "",
         clientId: this.client["msg"]["clientId"],
       });
-      this.$socket.emit("alert", {
+      this.$socket.client.emit("alert", {
         alertId: this.client["alertId"],
         readed: true,
       });

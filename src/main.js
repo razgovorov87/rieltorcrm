@@ -5,11 +5,12 @@ import dateFilter from "@/filters/date.filter";
 import "firebase/auth";
 import "firebase/database";
 import "firebase/storage";
+import { io } from 'socket.io-client';
 import vClickOutside from "v-click-outside";
 import Vue from "vue";
 import VueMyToasts from "vue-my-toasts";
 import "vue-my-toasts/dist/vue-my-toasts.css";
-import VueSocketIO from 'vue-socket.io';
+import VueSocketIOExt from 'vue-socket.io-extended';
 import VueCollapse from "vue2-collapse";
 import Vuelidate from "vuelidate";
 import App from "./App.vue";
@@ -36,8 +37,8 @@ Vue.use(VueMyToasts, {
   },
 });
 
-
-
+const socket = io(process.env.VUE_APP_WS_URL);
+Vue.use(VueSocketIOExt, socket, {store});
 Vue.use(vClickOutside);
 Vue.use(VueCollapse);
 
@@ -48,15 +49,15 @@ Vue.filter("currency", currencyFilter);
 Vue.use(Vuelidate);
 
 
-Vue.use(new VueSocketIO({
-  debug: false,
-  connection: process.env.VUE_APP_WS_URL,
-  vuex: {
-      store,
-      actionPrefix: 'SOCKET_',
-      mutationPrefix: 'SOCKET_'
-  },
-}));
+// Vue.use(new VueSocketIO({
+//   debug: false,
+//   connection: process.env.VUE_APP_WS_URL,
+//   vuex: {
+//       store,
+//       actionPrefix: 'SOCKET_',
+//       mutationPrefix: 'SOCKET_'
+//   },
+// }));
 
 
 new Vue({

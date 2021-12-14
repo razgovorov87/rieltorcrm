@@ -11,7 +11,7 @@ export default {
             state.expiredClients.splice(idx, 1);
             
         },
-        SOCKET_message(state, message) {
+        SOCKET_MESSAGE(state, message) {
             if (message['type'] == 'expiredClient') {
                 state.expiredClients = message['msg'];
             }

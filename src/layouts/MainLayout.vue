@@ -41,7 +41,7 @@ export default {
 
   async created() {
     const user = await store.dispatch("fetchInfo");
-    this.$socket.emit("login", { id: user.id });
+    this.$socket.client.emit("login", { id: user.id });
     this.successloadingUser = true;
   },
 
