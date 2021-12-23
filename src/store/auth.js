@@ -1,5 +1,4 @@
 import axios from "axios";
-import firebase from "firebase/app";
 import router from "../router";
 
 export default {
@@ -13,11 +12,13 @@ export default {
   mutations: {
     setRefreshToken: function(state, refreshToken) {
       state.refresh_token = refreshToken;
+      localStorage.removeItem("refresh_token");
       localStorage.setItem("refresh_token", refreshToken);
     },
 
     setAccessToken: function(state, accessToken) {
       state.access_token = accessToken;
+      localStorage.removeItem("access_token");
       localStorage.setItem("access_token", accessToken);
     },
 
@@ -62,12 +63,7 @@ export default {
 
     async fetchInfo({ dispatch, commit }) {
       try {
-        const info = await axios.post(`/fetchInfo`, {
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem('access_token')}`
-          },
-        });
+        const info = await axios.post(`/fetchInfo`);
         commit("setLoggedInUser", info.data);
         return info.data ? info.data : null;
       } catch (e) {
@@ -98,16 +94,54 @@ export default {
       }
     },
 
-    async verifyAgent({ dispatch }, id) {
-      await firebase
-        .database()
-        .ref(`/users/${id}`)
-        .update({
-          verify: true,
+    async changePassword(
+      { dispatch, commit },
+      { login, password, restoreCode }
+    ) {
+      try {
+        const data = {
+          login,
+          password,
+          restoreCode,
+        };
+        const response = await axios.post(`/changePassword`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
+      } catch (e) {
+        throw e;
+      }
     },
 
-    async refreshToken({ state, commit }) {
+    async verifyAgent({ dispatch }, id) {
+      const data = {
+        userId: id,
+      }
+      await axios.post('/verifyAgent', data);
+    },
+
+    async restorePassword({ dispatch }, login) {
+      const data = {
+        login,
+      };
+      await axios.post('/restore', data);
+    },
+
+    async verifyCode({ dispatch }, {login, restoreCode}) {
+      const data = {
+        login,
+        restoreCode,
+      };
+      try {
+        const response = await axios.post('/verifyRestore', data);
+        return response.data['message'];
+      } catch (e) {
+        throw e;
+      }
+    },
+
+    async refreshToken({ dispatch, commit }) {
       try {
         const response = await axios.post(
           "/token/refresh",

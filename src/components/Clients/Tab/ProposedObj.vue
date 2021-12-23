@@ -2,6 +2,34 @@
   <div class="flex flex-col px-8 py-4">
     <h3 class="font-medium text-gray-500">Предложенные объекты</h3>
     <div
+      class="
+        flex
+        justify-center
+        items-center
+        mt-4
+        font-medium
+        text-gray-500
+        cursor-pointer
+      "
+      @click="addProposedObject"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+        />
+      </svg>
+      <span>Добавить новую ссылку</span>
+    </div>
+    <div
       v-for="(obj, idx) in objects"
       :key="obj.status + idx"
       class="flex mt-3 items-center"
@@ -10,7 +38,17 @@
         v-if="objects[idx].status === 'offered'"
         type="text"
         placeholder="Ссылка на отчет в PDF"
-        class="flex-grow border-2 focus:outline-none py-1 px-3 text-gray-600 rounded mr-4 bg-gray-100"
+        class="
+          flex-grow
+          border-2
+          focus:outline-none
+          py-1
+          px-3
+          text-gray-600
+          rounded
+          mr-4
+          bg-gray-100
+        "
         @input="$emit('openSave', true)"
       >
         <p v-if="objects[idx].pdfNumber">
@@ -24,12 +62,34 @@
         v-model="objects[idx].link"
         type="text"
         placeholder="Ссылка на отчет в PDF"
-        class="flex-grow border-2 focus:outline-none py-1 px-3 rounded mr-4 cursor-pointer"
+        class="
+          flex-grow
+          border-2
+          focus:outline-none
+          py-1
+          px-3
+          rounded
+          mr-4
+          cursor-pointer
+        "
         @input="$emit('openSave', true)"
       />
       <div
         v-if="btnLoading"
-        class="mr-4 border-2 rounded px-3 py-1 focus:outline-none text-sm transition cursor-normal w-28 flex justify-center"
+        class="
+          mr-4
+          border-2
+          rounded
+          px-3
+          py-1
+          focus:outline-none
+          text-sm
+          transition
+          cursor-normal
+          w-28
+          flex
+          justify-center
+        "
       >
         <svg
           class="animate-spin h-5 w-5 text-gray-700"
@@ -54,7 +114,18 @@
       </div>
       <button
         v-else-if="!obj.status"
-        class="mr-4 border-2 rounded px-3 py-1 focus:outline-none text-sm transition hover:bg-gray-200 cursor-pointer"
+        class="
+          mr-4
+          border-2
+          rounded
+          px-3
+          py-1
+          focus:outline-none
+          text-sm
+          transition
+          hover:bg-gray-200
+          cursor-pointer
+        "
         @click="offerObject(obj)"
       >
         <span>Предложить объект</span>
@@ -64,13 +135,36 @@
         class="flex items-center"
       >
         <button
-          class="mr-2 border-2 border-green-200 rounded px-3 py-1 focus:outline-none text-green-600 text-sm transition bg-green-200 hover:bg-green-300 hover:border-green-300"
+          class="
+            mr-2
+            border-2 border-green-200
+            rounded
+            px-3
+            py-1
+            focus:outline-none
+            text-green-600 text-sm
+            transition
+            bg-green-200
+            hover:bg-green-300 hover:border-green-300
+          "
           @click="$emit('openReserveDialog', obj)"
         >
           Записать на просмотр
         </button>
         <button
-          class="mr-4 border-2 border-gray-600 rounded px-3 py-1 focus:outline-none text-gray-600 font-bold text-sm transition hover:bg-gray-200"
+          class="
+            mr-4
+            border-2 border-gray-600
+            rounded
+            px-3
+            py-1
+            focus:outline-none
+            text-gray-600
+            font-bold
+            text-sm
+            transition
+            hover:bg-gray-200
+          "
           @click="openPDF(obj)"
         >
           PDF
@@ -78,12 +172,35 @@
       </div>
       <template v-else>
         <div
-          class="mr-4 border-2 border-gray-200 rounded px-3 py-1 focus:outline-none text-gray-600 text-sm transition bg-gray-200 select-none"
+          class="
+            mr-4
+            border-2 border-gray-200
+            rounded
+            px-3
+            py-1
+            focus:outline-none
+            text-gray-600 text-sm
+            transition
+            bg-gray-200
+            select-none
+          "
         >
           Назначен просмотр
         </div>
         <button
-          class="mr-4 border-2 border-gray-600 rounded px-3 py-1 focus:outline-none text-gray-600 font-bold text-sm transition hover:bg-gray-200"
+          class="
+            mr-4
+            border-2 border-gray-600
+            rounded
+            px-3
+            py-1
+            focus:outline-none
+            text-gray-600
+            font-bold
+            text-sm
+            transition
+            hover:bg-gray-200
+          "
           @click="openPDF(obj)"
         >
           PDF
@@ -125,26 +242,6 @@
           />
         </svg>
       </button>
-    </div>
-    <div
-      class="flex justify-center items-center mt-4 font-medium text-gray-500 cursor-pointer"
-      @click="addProposedObject"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-5 w-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.5"
-          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-        />
-      </svg>
-      <span>Добавить новую ссылку</span>
     </div>
   </div>
 </template>

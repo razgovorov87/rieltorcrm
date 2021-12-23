@@ -24,6 +24,7 @@
     "vue-my-toasts": "^1.1.0",
     "vue-router": "^3.2.0",
     "vue-socket.io-extended": "^4.2.0",
+    "vue-verification-code-input": "^1.0.0",
     "vue2-collapse": "^1.0.15",
     "vuedraggable": "^2.24.3",
     "vuelidate": "^0.7.6",

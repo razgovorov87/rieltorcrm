@@ -1,5 +1,5 @@
 <template>
-  <div v-if="successloadingUser" class="flex h-screen bg-gray-100">
+  <div v-if="successloadingUser" class="flex h-screen bg-gray-100 relative">
     <Divider />
     <Header v-if="disableHeader" />
     <main
@@ -23,6 +23,40 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+
+    <div
+      class="
+        absolute
+        right-4
+        bottom-2
+        z-50
+        text-gray-500
+        flex
+        items-center
+        bg-white
+        shadow
+        px-2
+        rounded-lg
+      "
+      style="font-size: 10px"
+    >
+      CRM version:
+      <v-skeleton-loader
+        v-if="frontVersion == ''"
+        width="50"
+        type="text"
+        style="margin: 0; padding: 0"
+      ></v-skeleton-loader>
+      <span v-else class="mx-1">v{{ frontVersion }}</span>
+      | Core version:
+      <v-skeleton-loader
+        v-if="backVersion == ''"
+        width="50"
+        type="text"
+        style="margin: 0; padding: 0"
+      ></v-skeleton-loader>
+      <span v-else class="mx-1">v{{ backVersion }}</span>
+    </div>
   </div>
 </template>
 
@@ -31,7 +65,7 @@ import Divider from "@/components/Layout/Divider";
 import Header from "@/components/Layout/Header";
 import ExpiredClientItem from "@/components/ExpiredClientItem";
 import store from "../store";
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 export default {
   name: "App",
   data: () => ({
@@ -46,7 +80,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["expiredClients"]),
+    ...mapGetters(["expiredClients", "frontVersion", "backVersion"]),
 
     showDialog() {
       return this.expiredClients.length != 0;
@@ -106,6 +140,10 @@ body {
 }
 ::-webkit-scrollbar-thumb:window-inactive {
   background: rgba(173, 173, 173, 0.8);
+}
+
+.v-skeleton-loader__text {
+  margin: 0 3px !important;
 }
 </style>
 

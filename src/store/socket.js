@@ -1,9 +1,13 @@
 export default {
     state: {
         expiredClients: [],
+        frontVersion: '',
+        backVersion: '',
     },
     getters: {
         expiredClients: (state) => state.expiredClients, 
+        frontVersion: (state) => state.frontVersion, 
+        backVersion: (state) => state.backVersion, 
     },
     mutations: {
         removeExpiredClient(state, alertId) {
@@ -14,6 +18,10 @@ export default {
         SOCKET_MESSAGE(state, message) {
             if (message['type'] == 'expiredClient') {
                 state.expiredClients = message['msg'];
+            }
+            else if (message['type'] == 'msg' && message['versions'] != null) {
+                state.frontVersion = message['versions']['front'];
+                state.backVersion = message['versions']['back'];
             }
         }
     },

@@ -54,44 +54,5 @@ export default {
       });
       return response.data;
     },
-
-    async reserveObjLog({ dispatch }, { data, clientId }) {
-      const date = new Date();
-      const dateId = date.toISOString().slice(0, -14);
-      const hours =
-        date.getUTCHours() < 10 ? "0" + date.getUTCHours() : date.getUTCHours();
-      const minutes =
-        date.getUTCMinutes() < 10
-          ? "0" + date.getUTCMinutes()
-          : date.getUTCMinutes();
-      const seconds =
-        date.getUTCSeconds() < 10
-          ? "0" + date.getUTCSeconds()
-          : date.getUTCSeconds();
-      const time = hours + ":" + minutes;
-      const logId = hours.toString() + minutes.toString() + seconds.toString();
-      const uid = await dispatch("getUid");
-
-      let log = {
-        logType: "reserveObj",
-        agent: uid,
-        time,
-        obj: data,
-      };
-
-      await firebase
-        .database()
-        .ref(`/clients/${clientId}/logs/${dateId}/${logId}`)
-        .update(log);
-      log = {
-        logType: "reserveObj",
-        agent: uid,
-        time,
-        obj: data,
-        dateId,
-        logId,
-      };
-      return log;
-    },
   },
 };

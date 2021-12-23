@@ -253,22 +253,22 @@ export default {
 
   methods: {
     filterLogs(logs) {
-      //   if (this.loggedInUser.isAdmin) {
-      //     return logs;
-      //   } else {
-      let temp = {};
-      Object.keys(logs).forEach((key) => {
-        temp[key] = logs[key].filter(
-          (e) =>
-            e.agent == this.loggedInUser.id ||
-            e.newAgent == this.loggedInUser.id
-        );
-      });
-      const keys = Object.keys(temp).filter((key) => temp[key].length != 0);
-      const result = {};
-      keys.forEach((key) => (result[key] = temp[key]));
-      return result;
-      //   }
+      if (this.loggedInUser.isAdmin) {
+        return logs;
+      } else {
+        let temp = {};
+        Object.keys(logs).forEach((key) => {
+          temp[key] = logs[key].filter(
+            (e) =>
+              e.agent == this.loggedInUser.id ||
+              e.newAgent == this.loggedInUser.id
+          );
+        });
+        const keys = Object.keys(temp).filter((key) => temp[key].length != 0);
+        const result = {};
+        keys.forEach((key) => (result[key] = temp[key]));
+        return result;
+      }
     },
 
     filterDate() {
@@ -409,7 +409,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped >
 .systemMsg {
   @apply text-sm text-gray-500 justify-self-center flex-wrap;
 }

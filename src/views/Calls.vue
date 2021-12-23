@@ -147,6 +147,7 @@
         <v-calendar
           v-if="selectedAgent != null"
           v-model="calendar"
+          :event-more="false"
           ref="calendar"
           locale="ru"
           :weekdays="weekday"

@@ -1,63 +1,38 @@
 <template>
   <div class="w-1/2 p-20 py-32 pr-0">
-    <div>
-      <h1 class="text-dividerBg text-3xl">Авторизация</h1>
-      <div class="font-semibold text-sm mt-1">
-        Впервые здесь?
-        <router-link
-          to="/register"
-          class="text-dividerBg border-b pb-0.5 border-dividerBg cursor-pointer"
-          exact
-          >Создать аккаунт</router-link
+    <div class="flex items-center">
+      <div
+        class="
+          rounded-full
+          bg-dividerBg
+          text-white
+          p-2
+          mr-2
+          cursor-pointer
+          transition
+          hover:shadow-md hover:bg-opacity-75
+        "
+        @click="returnToEmail"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
         >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 19l-7-7m0 0l7-7m-7 7h18"
+          />
+        </svg>
       </div>
+      <h1 class="text-dividerBg text-3xl">Смена пароля</h1>
     </div>
 
     <div class="flex flex-col mt-10 max-w-sm">
-      <div>
-        <div
-          class="flex items-center border-b pb-4 transition"
-          :class="{
-            'border-dividerBg':
-              coloredBorderLogin && !($v.login.$dirty && !$v.login.required),
-            'border-red-500': $v.login.$dirty && !$v.login.required,
-          }"
-        >
-          <svg
-            class="w-6 mr-2"
-            :class="
-              $v.login.$dirty && !$v.login.required
-                ? 'text-red-500'
-                : 'text-dividerBg'
-            "
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
-              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-            />
-          </svg>
-          <input
-            v-model.trim="$v.login.$model"
-            type="text"
-            placeholder="Логин"
-            class="w-full focus:outline-none text-sm"
-            @focus.exact="coloredBorderLogin = true"
-            @blur="coloredBorderLogin = false"
-          />
-        </div>
-        <span
-          v-if="!$v.login.required && $v.login.$dirty"
-          class="text-xs text-red-600 italic"
-          >Введите логин</span
-        >
-      </div>
-
       <div>
         <div
           class="flex items-center border-b pb-4 transition mt-4"
@@ -93,11 +68,10 @@
           <input
             v-model="$v.password.$model"
             :type="showPassword ? 'text' : 'password'"
-            placeholder="Пароль"
-            class="w-full focus:outline-none text-sm"
+            placeholder="Новый пароль"
+            class="focus:outline-none text-sm"
             @focus.exact="coloredBorderPassword = true"
             @blur="coloredBorderPassword = false"
-            @keydown.enter="auth"
           />
         </div>
         <span
@@ -110,6 +84,67 @@
           class="text-xs text-red-600 italic"
           >Минимальное кол-во символов:
           {{ $v.password.$params.minLength.min }}</span
+        >
+      </div>
+
+      <div>
+        <div
+          class="flex items-center border-b pb-4 transition mt-4"
+          :class="{
+            'border-dividerBg':
+              coloredBorderRePassword &&
+              !($v.rePassword.$dirty && !$v.rePassword.required),
+            'border-red-500':
+              ($v.rePassword.$dirty && !$v.rePassword.required) ||
+              ($v.rePassword.$dirty && !$v.rePassword.minLength) ||
+              ($v.rePassword.$dirty && !$v.rePassword.sameAsPassword),
+          }"
+        >
+          <svg
+            class="w-6 mr-2"
+            :class="
+              ($v.password.$dirty && !$v.password.required) ||
+              ($v.password.$dirty && !$v.password.minLength) ||
+              ($v.rePassword.$dirty && !$v.rePassword.sameAsPassword)
+                ? 'text-red-500'
+                : 'text-dividerBg'
+            "
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"
+            />
+          </svg>
+          <input
+            v-model="$v.rePassword.$model"
+            type="password"
+            placeholder="Повторите пароль"
+            class="focus:outline-none text-sm"
+            @focus.exact="coloredBorderRePassword = true"
+            @blur="coloredBorderRePassword = false"
+          />
+        </div>
+        <span
+          v-if="!$v.rePassword.required && $v.rePassword.$dirty"
+          class="text-xs text-red-600 italic"
+          >Введите пароль</span
+        >
+        <span
+          v-else-if="!$v.rePassword.sameAsPassword && $v.rePassword.$dirty"
+          class="text-xs text-red-600 italic"
+          >Пароли не совпадают</span
+        >
+        <span
+          v-else-if="!$v.rePassword.minLength && $v.rePassword.$dirty"
+          class="text-xs text-red-600 italic"
+          >Минимальное кол-во символов:
+          {{ $v.rePassword.$params.minLength.min }}</span
         >
       </div>
 
@@ -150,15 +185,6 @@
             </span>
           </span>
         </div>
-
-        <div class="mb-0.5">
-          <router-link
-            to="/restore"
-            class="text-dividerBg border-b border-dividerBg pb-0.5"
-            exact
-            >Забыли пароль?</router-link
-          >
-        </div>
       </div>
 
       <div class="text-center flex my-3">
@@ -178,9 +204,9 @@
               flex
               justify-center
             "
-            @click="auth"
+            @click="changePassword"
           >
-            Авторизация
+            Сменить пароль
           </div>
 
           <div
@@ -221,55 +247,54 @@
 </template>
 
 <script>
-import errors from "@/errors";
 import { required, minLength, sameAs } from "vuelidate/lib/validators";
 export default {
+  props: ["formData"],
   data: () => ({
-    login: "",
     password: "",
+    rePassword: "",
     coloredBorderLogin: false,
     coloredBorderPassword: false,
+    coloredBorderRePassword: false,
     showPassword: false,
     btnLoading: false,
   }),
 
+  created() {
+    if (!this.formData) this.$router.push("/restore");
+  },
+
   validations: {
-    login: { required },
     password: { required, minLength: minLength(6) },
+    rePassword: {
+      required,
+      minLength: minLength(6),
+      sameAsPassword: sameAs("password"),
+    },
   },
 
   methods: {
-    async auth() {
+    returnToEmail() {
+      this.$router.push("/restore");
+    },
+    async changePassword() {
       if (this.$v.$invalid) {
         this.$v.$touch();
-        this.btnLoading = false;
         return;
       }
-
       this.btnLoading = true;
 
-      const formData = {
-        login: this.login,
+      const data = {
+        login: this.formData["login"],
+        restoreCode: this.formData["restoreCode"],
         password: this.password,
       };
 
-      try {
-        // const response = await this.$store.dispatch('checkVerify', formData)
-        // if(!response) {
-        //     this.btnLoading = false
-        //     this.$router.push('/verify')
-        //     return
-        // }
-        await this.$store.dispatch("login", formData);
-        this.btnLoading = false;
-        this.$router.push("/");
-      } catch (e) {
-        this.$toasts.push({
-          type: "error",
-          message: errors[e.code],
-        });
-        this.btnLoading = false;
-      }
+      await this.$store.dispatch("changePassword", data);
+
+      this.btnLoading = false;
+
+      this.$router.push("/login");
     },
   },
 };

@@ -19,6 +19,22 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Register.vue"),
   },
   {
+    path: "/restore",
+    name: "Подтверждение почты",
+    meta: { layout: "auth" },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/RestorePassword.vue"),
+  },
+
+  {
+    path: "/change-password",
+    name: "Смена пароля",
+    meta: { layout: "auth" },
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/ChangePassword.vue"),
+  },
+  {
     path: "/getinfo",
     name: "Получение информации",
     meta: { layout: "auth" },

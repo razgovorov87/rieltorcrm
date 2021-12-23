@@ -13,14 +13,15 @@ export default {
       return result;
     },
 
-    async reserveObj({ dispatch }, { obj, clientId }) {
+    async reserveObj({ dispatch }, { data, clientId }) {
       const author = await dispatch("getUid");
-      const data = {
-        obj,
+      const request = {
+        data,
         clientId,
         author,
       };
-      await axios.post(`/reserveObj`, data, {
+      console.log(request);
+      await axios.post(`/reserveObj`, request, {
         headers: {
           "Content-Type": "application/json",
         },
