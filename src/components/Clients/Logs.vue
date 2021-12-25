@@ -37,6 +37,7 @@
           tag="div"
           name="list"
           class="grid mt-6 mb-6 space-y-4 w-full"
+          :key="day + idx"
         >
           <div
             v-for="(log, idx) in formatDay(day)"
