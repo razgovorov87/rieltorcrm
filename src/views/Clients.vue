@@ -73,10 +73,26 @@ export default {
     },
 
     async fetchClients(bool) {
-      this.clients = await this.$store.dispatch("fetchUserClients");
-      if (bool) {
-        this.refreshList++;
-        this.refreshList2++;
+      try {
+        this.clients = await this.$store.dispatch("fetchUserClients");
+        if (bool) {
+          this.refreshList++;
+          this.refreshList2++;
+        }
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
       }
     },
 

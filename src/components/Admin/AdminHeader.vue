@@ -154,9 +154,25 @@ export default {
   }),
 
   async mounted() {
-    this.phones = await this.$store.dispatch("fetchClients");
-    this.archivePhones = await this.$store.dispatch("fetchArchiveClients");
-    this.replacePhone();
+    try {
+      this.phones = await this.$store.dispatch("fetchClients");
+      this.archivePhones = await this.$store.dispatch("fetchArchiveClients");
+      this.replacePhone();
+    } catch (e) {
+      const msg = e.data["message"];
+      if (msg) {
+        this.$toasts.push({
+          type: "error",
+          message: errors[msg],
+        });
+      } else {
+        this.$toasts.push({
+          type: "error",
+          message: msg,
+        });
+      }
+      throw e;
+    }
   },
 
   methods: {

@@ -44,7 +44,7 @@
           <input
             v-model.trim="$v.login.$model"
             type="text"
-            placeholder="Логин"
+            placeholder="Email"
             class="focus:outline-none text-sm"
             @focus.exact="coloredBorderLogin = true"
             @blur="coloredBorderLogin = false"
@@ -54,6 +54,11 @@
           v-if="!$v.login.required && $v.login.$dirty"
           class="text-xs text-red-600 italic"
           >Введите логин</span
+        >
+        <span
+          v-else-if="!$v.login.email && $v.login.$dirty"
+          class="text-xs text-red-600 italic"
+          >Введите неверный Email</span
         >
       </div>
 
@@ -186,7 +191,19 @@
             ></span>
             <span
               id="checkbox"
-              class="absolute block w-4 h-4 mt-1 rounded-full shadow inset-y-0 focus-within:shadow-outline ml-1 left-0"
+              class="
+                absolute
+                block
+                w-4
+                h-4
+                mt-1
+                rounded-full
+                shadow
+                inset-y-0
+                focus-within:shadow-outline
+                ml-1
+                left-0
+              "
               :class="showPassword ? 'open' : 'bg-white'"
             >
               <input
@@ -203,7 +220,19 @@
         <transition name="opacity" mode="out-in">
           <div
             v-if="!btnLoading"
-            class="bg-dividerBg w-full py-2 rounded-lg font-semibold text-white cursor-pointer select-none text-center flex justify-center"
+            class="
+              bg-dividerBg
+              w-full
+              py-2
+              rounded-lg
+              font-semibold
+              text-white
+              cursor-pointer
+              select-none
+              text-center
+              flex
+              justify-center
+            "
             @click="register"
           >
             Регистрация
@@ -211,14 +240,26 @@
 
           <div
             v-else
-            class="bg-dividerBg w-full py-2 rounded-lg font-semibold text-white cursor-pointer select-none text-center flex justify-center"
+            class="
+              bg-dividerBg
+              w-full
+              py-2
+              rounded-lg
+              font-semibold
+              text-white
+              cursor-pointer
+              select-none
+              text-center
+              flex
+              justify-center
+            "
           >
             <svg
               class="w-6 animate-spin mr-2"
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
               viewBox="0 0 50 50"
-              style="enable-background:new 0 0 50 50;"
+              style="enable-background: new 0 0 50 50"
               xml:space="preserve"
             >
               <path
@@ -235,7 +276,7 @@
 </template>
 
 <script>
-import { required, minLength, sameAs } from "vuelidate/lib/validators";
+import { required, minLength, sameAs, email } from "vuelidate/lib/validators";
 export default {
   data: () => ({
     login: "",
@@ -249,7 +290,7 @@ export default {
   }),
 
   validations: {
-    login: { required },
+    login: { required, email },
     password: { required, minLength: minLength(6) },
     rePassword: {
       required,
@@ -272,27 +313,40 @@ export default {
         password: this.password,
       };
 
-      const checkLogin = await this.$store.dispatch("checkLogin", this.login);
-      if (!checkLogin) {
-        this.$toasts.push({
-          type: "error",
-          message: "Пользователь с таким логином уже существует",
+      try {
+        const checkLogin = await this.$store.dispatch("checkLogin", this.login);
+        if (!checkLogin) {
+          this.$toasts.push({
+            type: "error",
+            message: "Пользователь с таким логином уже существует",
+          });
+          this.btnLoading = false;
+          return;
+        }
+
+        this.$router.push({
+          name: "Получение информации",
+          path: "/getinfo",
+          params: { formData },
         });
+
         this.btnLoading = false;
-        return;
-      } else if (this.login.includes("@")) {
-        this.$toasts.push({ type: "error", message: "Неверный формат логина" });
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
         this.btnLoading = false;
-        return;
+        throw e;
       }
-
-      this.$router.push({
-        name: "Получение информации",
-        path: "/getinfo",
-        params: { formData },
-      });
-
-      this.btnLoading = false;
     },
   },
 };

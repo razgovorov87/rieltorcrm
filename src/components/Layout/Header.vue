@@ -48,7 +48,23 @@ export default {
 
   mounted() {
     this.fetchInfo();
-    this.$store.dispatch("fetchFreeClients");
+    try {
+      this.$store.dispatch("fetchFreeClients");
+    } catch (e) {
+      const msg = e.data["message"];
+      if (msg) {
+        this.$toasts.push({
+          type: "error",
+          message: errors[msg],
+        });
+      } else {
+        this.$toasts.push({
+          type: "error",
+          message: msg,
+        });
+      }
+      throw e;
+    }
   },
 
   methods: {

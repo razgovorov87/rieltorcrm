@@ -15,7 +15,7 @@ export default {
     },
 
     removeClient(state, clientId) {
-      const idx = state.clients.findIndex(client => client.id == clientId);
+      const idx = state.clients.findIndex((client) => client.id == clientId);
       state.clients.splice(idx, 1);
     },
 
@@ -29,206 +29,273 @@ export default {
   },
   actions: {
     async fetchFreeClients({ dispatch, commit }) {
-      const response = await axios.get(`/fetchFreeClients`);
-      commit('setFreeClients', response.data);
+      try {
+        const response = await axios.get(`/fetchFreeClients`);
+        commit("setFreeClients", response.data);
+      } catch (e) {
+        throw e;
+      }
     },
 
     async addNewClient(
       { dispatch, commit },
       { phone, fio, comment, missedCall, interestingObj }
     ) {
-      const uid = await dispatch("getUid");
-      const data = {
-        phone,
-        fio,
-        comment,
-        interestingObj,
-        missedCall,
-        author: uid,
-      };
+      try {
+        const uid = await dispatch("getUid");
+        const data = {
+          phone,
+          fio,
+          comment,
+          interestingObj,
+          missedCall,
+          author: uid,
+        };
 
-      const response = await axios.post(`/addNewClient`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+        const response = await axios.post(`/addNewClient`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } catch (e) {
+        throw e;
+      }
     },
 
     async saveClientComposition(
       { dispatch },
       [clientId, frontData, compositionType]
     ) {
-      const data = {
-        clientId,
-        data: frontData,
-        compositionType,
-      };
-      const response = await axios.post(`/saveClientComposition`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      try {
+        const data = {
+          clientId,
+          data: frontData,
+          compositionType,
+        };
+        const response = await axios.post(`/saveClientComposition`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } catch (e) {
+        throw e;
+      }
     },
 
     async saveCriterion({ dispatch }, { frontData, clientId }) {
-      const data = {
-        clientId,
-        data: frontData,
-      };
-      const response = await axios.post(`/saveCriterion`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      try {
+        const data = {
+          clientId,
+          data: frontData,
+        };
+        const response = await axios.post(`/saveCriterion`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } catch (e) {
+        throw e;
+      }
     },
 
     async fetchClients({ dispatch, commit }) {
-      const response = await axios.get(`/fetchClients`);
-      if (!response.data) return false;
-      const result = Object.keys(response.data).map((key) => ({
-        ...response.data[key],
-        id: key,
-      }));
-      return result;
+      try {
+        const response = await axios.get(`/fetchClients`);
+        if (!response.data) return false;
+        const result = Object.keys(response.data).map((key) => ({
+          ...response.data[key],
+          id: key,
+        }));
+        return result;
+      } catch (e) {
+        throw e;
+      }
     },
 
     async fetchUserClients({ dispatch, commit }) {
-      const uid = await dispatch("getUid");
-      const data = {
-        agentId: uid,
-      };
-      const response = await axios.get(`/fetchUserClients`, {
-        params: {
+      try {
+        const uid = await dispatch("getUid");
+        const data = {
           agentId: uid,
-        },
-      });
+        };
+        const response = await axios.get(`/fetchUserClients`, {
+          params: {
+            agentId: uid,
+          },
+        });
 
-      const result = Object.keys(response.data).map((key) => ({
-        ...response.data[key],
-        id: key,
-      }));
-      commit("setClients", result);
-      return result;
+        const result = Object.keys(response.data).map((key) => ({
+          ...response.data[key],
+          id: key,
+        }));
+        commit("setClients", result);
+        return result;
+      } catch (e) {
+        throw e;
+      }
     },
 
     async saveClientInfo({}, { fio, budget, status, clientId }) {
-      const data = {
-        fio,
-        budget,
-        status,
-        clientId,
-      };
-      const response = await axios.post(`/saveClientInfo`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      return response.data;
+      try {
+        const data = {
+          fio,
+          budget,
+          status,
+          clientId,
+        };
+        const response = await axios.post(`/saveClientInfo`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        return response.data;
+      } catch (e) {
+        throw e;
+      }
     },
 
     async saveClientLinks({ dispatch }, { clientId, arr }) {
-      const data = {
-        clientId,
-        arr,
-      };
-      const response = await axios.post(`/saveExceptions`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      try {
+        const data = {
+          clientId,
+          arr,
+        };
+        const response = await axios.post(`/saveExceptions`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } catch (e) {
+        throw e;
+      }
     },
 
     async saveExceptions({ dispatch }, { clientId, exceptions }) {
-      const data = {
-        clientId,
-        exceptions,
-      };
-      const response = await axios.post(`/saveExceptions`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      try {
+        const data = {
+          clientId,
+          exceptions,
+        };
+        const response = await axios.post(`/saveExceptions`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } catch (e) {
+        throw e;
+      }
     },
 
     async catchNewClient({ commit, dispatch }) {
-      const uid = await dispatch("getUid");
-      const data = {
-        agentId: uid,
-      };
-      const item = await axios.post(`/catchNewClient`, data);
-      commit('pushClients', item.data);
+      try {
+        const uid = await dispatch("getUid");
+        const data = {
+          agentId: uid,
+        };
+        const item = await axios.post(`/catchNewClient`, data);
+        commit("pushClients", item.data);
+      } catch (e) {
+        throw e;
+      }
     },
 
-    async refuseClient({ commit ,dispatch }, { cause, otherCause, comment, clientId }) {
-      const uid = await dispatch("getUid");
-      const data = {
-        agentId: uid,
-        cause,
-        otherCause,
-        comment,
-        clientId,
-      };
-      const response = await axios.post(`/refuseClient`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      commit('removeClient', clientId);
+    async refuseClient(
+      { commit, dispatch },
+      { cause, otherCause, comment, clientId }
+    ) {
+      try {
+        const uid = await dispatch("getUid");
+        const data = {
+          agentId: uid,
+          cause,
+          otherCause,
+          comment,
+          clientId,
+        };
+        const response = await axios.post(`/refuseClient`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        commit("removeClient", clientId);
+      } catch (e) {
+        throw e;
+      }
     },
 
     async removeNewClients({ dispatch }, clients) {
-      const ids = [];
-      clients.forEach((client) => ids.push(client.id));
-      const data = {
-        clients: ids,
-      };
-      const respose = await axios.post(`/removeNewClients`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      try {
+        const ids = [];
+        clients.forEach((client) => ids.push(client.id));
+        const data = {
+          clients: ids,
+        };
+        const respose = await axios.post(`/removeNewClients`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } catch (e) {
+        throw e;
+      }
     },
 
     async returnClientToStart({ dispatch }, client) {
-      const data = {
-        clientId: client.id,
-      };
-      const response = axios.post(`/returnClientToStart`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      try {
+        const data = {
+          clientId: client.id,
+        };
+        const response = axios.post(`/returnClientToStart`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } catch (e) {
+        throw e;
+      }
     },
 
     async returnArchiveClientToStart({ dispatch }, client) {
-      const data = {
-        clientId: client.id,
-      };
-      const response = await axios.post(`/returnArchiveClientToStart`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      try {
+        const data = {
+          clientId: client.id,
+        };
+        const response = await axios.post(`/returnArchiveClientToStart`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } catch (e) {
+        throw e;
+      }
     },
 
     async deleteClient({ dispatch }, client) {
-      const data = {
-        clientId: client.id,
-      };
-      const response = await axios.post(`/deleteClient`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      try {
+        const data = {
+          clientId: client.id,
+        };
+        const response = await axios.post(`/deleteClient`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } catch (e) {
+        throw e;
+      }
     },
 
     async fetchArchiveClients({ dispatch }) {
-      const response = await axios.get(`/fetchArchiveClients`);
-      const result = Object.keys(response.data).map((key) => ({
-        ...response.data[key],
-        id: key,
-      }));
-      return result;
+      try {
+        const response = await axios.get(`/fetchArchiveClients`);
+        const result = Object.keys(response.data).map((key) => ({
+          ...response.data[key],
+          id: key,
+        }));
+        return result;
+      } catch (e) {
+        throw e;
+      }
     },
   },
 

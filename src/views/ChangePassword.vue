@@ -290,11 +290,26 @@ export default {
         password: this.password,
       };
 
-      await this.$store.dispatch("changePassword", data);
-
-      this.btnLoading = false;
-
-      this.$router.push("/login");
+      try {
+        await this.$store.dispatch("changePassword", data);
+        this.btnLoading = false;
+        this.$router.push("/login");
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        this.btnLoading = false;
+        throw e;
+      }
     },
   },
 };

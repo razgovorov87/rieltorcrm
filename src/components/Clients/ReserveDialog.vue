@@ -224,7 +224,23 @@ export default {
   }),
 
   async mounted() {
-    this.agents = await this.$store.dispatch("fetchAgents");
+    try {
+      this.agents = await this.$store.dispatch("fetchAgents");
+    } catch (e) {
+      const msg = e.data["message"];
+      if (msg) {
+        this.$toasts.push({
+          type: "error",
+          message: errors[msg],
+        });
+      } else {
+        this.$toasts.push({
+          type: "error",
+          message: msg,
+        });
+      }
+      throw e;
+    }
   },
 
   methods: {

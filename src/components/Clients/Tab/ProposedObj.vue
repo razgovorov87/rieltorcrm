@@ -277,11 +277,30 @@ export default {
   methods: {
     async updateReserve() {
       const clientId = this.client.id;
-      this.client.reserves = await this.$store.dispatch(
-        "fetchClientReserves",
-        clientId
-      );
-      this.objects = await this.$store.dispatch("fetchClientObjects", clientId);
+      try {
+        this.client.reserves = await this.$store.dispatch(
+          "fetchClientReserves",
+          clientId
+        );
+        this.objects = await this.$store.dispatch(
+          "fetchClientObjects",
+          clientId
+        );
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
+      }
     },
 
     openPDF(obj) {
@@ -301,11 +320,27 @@ export default {
     },
 
     async saveLinks() {
-      const data = {
-        clientId: this.client.id,
-        arr: this.objects,
-      };
-      await this.$store.dispatch("saveClientLinks", data);
+      try {
+        const data = {
+          clientId: this.client.id,
+          arr: this.objects,
+        };
+        await this.$store.dispatch("saveClientLinks", data);
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
+      }
     },
 
     openLink(obj) {
@@ -418,23 +453,21 @@ export default {
           throw e;
         }
       } else {
-        this.$toasts.push({
-          type: "error",
-          message: "При создании презентации произошла ошибка!",
-        });
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
       }
     },
-
-    // rndLink() {
-    //   let text = ''
-    //   const possible = "abcdefghijklmnopqrstuvwxyz";
-
-    //   for(let i = 0; i < 5; i++) {
-    //     text += possible.charAt(Math.floor(Math.random() * possible.length));
-    //   }
-
-    //   return text
-    // },
 
     checkLink(link) {
       if (this.client.reserves) {

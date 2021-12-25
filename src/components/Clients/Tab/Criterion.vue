@@ -5,7 +5,17 @@
       <input
         v-model="cause"
         type="text"
-        class="items-center px-4 py-2 flex-grow focus:outline-none border border-gray-300 rounded focus:ring-2 ring-dividerBg"
+        class="
+          items-center
+          px-4
+          py-2
+          flex-grow
+          focus:outline-none
+          border border-gray-300
+          rounded
+          focus:ring-2
+          ring-dividerBg
+        "
         placeholder=""
         @input="$emit('openSave', true)"
       />
@@ -18,7 +28,17 @@
       <input
         v-model="date"
         type="date"
-        class="items-center px-4 py-2 flex-grow focus:outline-none border border-gray-300 rounded focus:ring-2 ring-dividerBg"
+        class="
+          items-center
+          px-4
+          py-2
+          flex-grow
+          focus:outline-none
+          border border-gray-300
+          rounded
+          focus:ring-2
+          ring-dividerBg
+        "
         placeholder=""
         @input="$emit('openSave', true)"
       />
@@ -29,7 +49,17 @@
       <input
         v-model="area"
         type="text"
-        class="items-center px-4 py-2 flex-grow focus:outline-none border border-gray-300 rounded focus:ring-2 ring-dividerBg"
+        class="
+          items-center
+          px-4
+          py-2
+          flex-grow
+          focus:outline-none
+          border border-gray-300
+          rounded
+          focus:ring-2
+          ring-dividerBg
+        "
         placeholder=""
         @input="$emit('openSave', true)"
       />
@@ -42,7 +72,21 @@
       <input
         v-model="adressWork"
         type="text"
-        class="w-full items-center px-4 py-2 flex-grow focus:outline-none border border-gray-300 rounded focus:ring-2 ring-dividerBg mb-2 flex-grow mr-2"
+        class="
+          w-full
+          items-center
+          px-4
+          py-2
+          flex-grow
+          focus:outline-none
+          border border-gray-300
+          rounded
+          focus:ring-2
+          ring-dividerBg
+          mb-2
+          flex-grow
+          mr-2
+        "
         placeholder="Адрес работы"
         @input="$emit('openSave', true)"
       />
@@ -50,7 +94,19 @@
       <input
         v-model="timeToWork"
         type="number"
-        class="items-center px-4 py-2 flex-grow focus:outline-none border border-gray-300 rounded focus:ring-2 ring-dividerBg mb-2 w-52"
+        class="
+          items-center
+          px-4
+          py-2
+          flex-grow
+          focus:outline-none
+          border border-gray-300
+          rounded
+          focus:ring-2
+          ring-dividerBg
+          mb-2
+          w-52
+        "
         placeholder="Сколько добираться"
         @input="$emit('openSave', true)"
       />
@@ -61,7 +117,20 @@
       <textarea
         v-model="wishes"
         rows="4"
-        class="w-full border-2 rounded shadow h-full px-2 py-1 focus:outline-none focus:ring-2 ring-dividerBg flex mt-2 mb-10"
+        class="
+          w-full
+          border-2
+          rounded
+          shadow
+          h-full
+          px-2
+          py-1
+          focus:outline-none focus:ring-2
+          ring-dividerBg
+          flex
+          mt-2
+          mb-10
+        "
         placeholder="Перечислите пожелания клиента по будующей квартире"
         @keydown.enter.exact.prevent
         @input="$emit('openSave', true)"
@@ -125,6 +194,18 @@ export default {
           clientId: this.client.id,
         });
       } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
         throw e;
       }
     },

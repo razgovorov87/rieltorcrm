@@ -1,7 +1,14 @@
 <template>
   <div class="w-full flex flex-col bg-gray-200">
     <div
-      class="flex items-center px-6 py-2 cursor-pointer border-b border-gray-300"
+      class="
+        flex
+        items-center
+        px-6
+        py-2
+        cursor-pointer
+        border-b border-gray-300
+      "
       @click="isOpen = !isOpen"
     >
       <svg
@@ -21,12 +28,31 @@
       </svg>
       <div class="flex shadow-md">
         <span
-          class="rounded text-white px-4 py-1 font-medium select-none rounded-r-none"
+          class="
+            rounded
+            text-white
+            px-4
+            py-1
+            font-medium
+            select-none
+            rounded-r-none
+          "
           :class="'bg-' + category.color"
           >{{ category.title }}</span
         >
         <span
-          class="text-sm py-1 px-2 flex items-center justify-center rounded-r text-white font-medium border-l border-white border-opacity-25"
+          class="
+            text-sm
+            py-1
+            px-2
+            flex
+            items-center
+            justify-center
+            rounded-r
+            text-white
+            font-medium
+            border-l border-white border-opacity-25
+          "
           :class="'bg-' + category.color"
         >
           {{ items.filter((item) => item.status === category.title).length }}
@@ -37,7 +63,13 @@
       <tr
         v-for="client in items.filter((item) => item.status === category.title)"
         :key="client.id"
-        class="border-b border-gray-200 hover:bg-gray-100 flex items-center cursor-pointer"
+        class="
+          border-b border-gray-200
+          hover:bg-gray-100
+          flex
+          items-center
+          cursor-pointer
+        "
         @click="$emit('openClient', client)"
       >
         <td class="w-2/12 py-3 px-6 text-left whitespace-nowrap">
@@ -105,7 +137,18 @@
           <div class="flex items-center justify-center">
             <span
               v-if="refuseCount(client.causes) >= 3"
-              class="font-medium p-2 bg-red-600 rounded-full h-8 w-8 flex items-center justify-center text-white"
+              class="
+                font-medium
+                p-2
+                bg-red-600
+                rounded-full
+                h-8
+                w-8
+                flex
+                items-center
+                justify-center
+                text-white
+              "
               >{{ refuseCount(client.causes) }}</span
             >
             <span v-else class="font-medium">{{
@@ -117,7 +160,14 @@
         <td class="w-2/12 py-3 px-6 text-center">
           <div class="flex items-center justify-center">
             <div
-              class="w-5 mr-2 transform transition hover:text-blue-500 hover:scale-110 cursor-pointer"
+              class="
+                w-5
+                mr-2
+                transform
+                transition
+                hover:text-blue-500 hover:scale-110
+                cursor-pointer
+              "
               @click.stop="returnClientToStart(client)"
             >
               <svg
@@ -173,6 +223,18 @@ export default {
           message: 'Клиент успешно перенесен в группу "Не обработано"',
         });
       } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
         throw e;
       }
     },
@@ -197,6 +259,18 @@ export default {
           message: "Клиент успешно удален",
         });
       } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
         throw e;
       }
     },

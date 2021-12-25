@@ -5,7 +5,15 @@
         >Состав проживающих</span
       >
       <div
-        class="flex-grow border rounded bg-white cursor-pointer relative border-gray-100"
+        class="
+          flex-grow
+          border
+          rounded
+          bg-white
+          cursor-pointer
+          relative
+          border-gray-100
+        "
       >
         <div
           class="flex justify-between items-center px-4 py-2"
@@ -40,12 +48,26 @@
           "
         >
           <div
-            class="bg-white flex flex-col border rounded shadow border-gray-100 overflow-hidden"
+            class="
+              bg-white
+              flex flex-col
+              border
+              rounded
+              shadow
+              border-gray-100
+              overflow-hidden
+            "
           >
             <span
               v-for="(item, idx) in list"
               :key="item + idx"
-              class="border-b px-4 py-2 hover:bg-dividerBg hover:text-white select-none"
+              class="
+                border-b
+                px-4
+                py-2
+                hover:bg-dividerBg hover:text-white
+                select-none
+              "
               @click="
                 ($event) => {
                   family = $event.target.innerText;
@@ -67,7 +89,15 @@
       >
         <div class="flex items-center flex-grow mb-3">
           <div
-            class="flex items-center justify-center font-medium text-gray-700 flex-shrink-0 mr-4"
+            class="
+              flex
+              items-center
+              justify-center
+              font-medium
+              text-gray-700
+              flex-shrink-0
+              mr-4
+            "
           >
             <div class="flex items-center mr-2">
               <svg
@@ -92,7 +122,15 @@
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="transition rounded-md w-6 h-6 p-1 bg-gray-200 hover:bg-red-600 hover:text-white"
+                  class="
+                    transition
+                    rounded-md
+                    w-6
+                    h-6
+                    p-1
+                    bg-gray-200
+                    hover:bg-red-600 hover:text-white
+                  "
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -112,15 +150,44 @@
                       men[idx].openDialog = false;
                     }
                   "
-                  class="absolute top-full right-0 mt-2 transform translate-x-1/2 bg-white border-2 border-gray-200 rounded-lg z-50 shadow-lg"
+                  class="
+                    absolute
+                    top-full
+                    right-0
+                    mt-2
+                    transform
+                    translate-x-1/2
+                    bg-white
+                    border-2 border-gray-200
+                    rounded-lg
+                    z-50
+                    shadow-lg
+                  "
                 >
                   <div
-                    class="flex flex-col items-center justify-center text-black py-1 px-3"
+                    class="
+                      flex flex-col
+                      items-center
+                      justify-center
+                      text-black
+                      py-1
+                      px-3
+                    "
                   >
                     <span class="text-sm mb-1">Удалить?</span>
                     <div class="flex items-center text-sm">
                       <div
-                        class="py-1 px-3 text-center bg-red-500 mr-2 text-white rounded cursor-pointer shadow"
+                        class="
+                          py-1
+                          px-3
+                          text-center
+                          bg-red-500
+                          mr-2
+                          text-white
+                          rounded
+                          cursor-pointer
+                          shadow
+                        "
                         @click.stop="
                           () => {
                             men[idx].openDialog = false;
@@ -132,7 +199,16 @@
                       </div>
 
                       <div
-                        class="py-1 px-3 text-center bg-green-500 text-white rounded cursor-pointer shadow"
+                        class="
+                          py-1
+                          px-3
+                          text-center
+                          bg-green-500
+                          text-white
+                          rounded
+                          cursor-pointer
+                          shadow
+                        "
                         @click.stop="men[idx].openDialog = false"
                       >
                         Отмена
@@ -147,7 +223,20 @@
           <input
             v-model="men[idx].fio"
             type="text"
-            class="w-full shadow items-center px-4 py-2 flex-grow focus:outline-none border border-gray-100 rounded focus:ring-2 ring-dividerBg flex-grow"
+            class="
+              w-full
+              shadow
+              items-center
+              px-4
+              py-2
+              flex-grow
+              focus:outline-none
+              border border-gray-100
+              rounded
+              focus:ring-2
+              ring-dividerBg
+              flex-grow
+            "
             placeholder="ФИО"
             @input="$emit('openSave', true)"
           />
@@ -163,7 +252,19 @@
           <input
             v-model="men[idx].age"
             type="number"
-            class="w-full shadow items-center px-4 py-2 flex-grow focus:outline-none border border-gray-100 rounded focus:ring-2 ring-dividerBg"
+            class="
+              w-full
+              shadow
+              items-center
+              px-4
+              py-2
+              flex-grow
+              focus:outline-none
+              border border-gray-100
+              rounded
+              focus:ring-2
+              ring-dividerBg
+            "
             placeholder="Возраст"
             @input="$emit('openSave', true)"
           />
@@ -171,7 +272,19 @@
           <input
             v-model="men[idx].work"
             type="text"
-            class="w-full shadow items-center px-4 py-2 flex-grow focus:outline-none border border-gray-100 rounded focus:ring-2 ring-dividerBg"
+            class="
+              w-full
+              shadow
+              items-center
+              px-4
+              py-2
+              flex-grow
+              focus:outline-none
+              border border-gray-100
+              rounded
+              focus:ring-2
+              ring-dividerBg
+            "
             placeholder="Сфера деятельности"
             @input="$emit('openSave', true)"
           />
@@ -179,7 +292,19 @@
           <input
             v-model="men[idx].national"
             type="text"
-            class="w-full shadow items-center px-4 py-2 flex-grow focus:outline-none border border-gray-100 rounded focus:ring-2 ring-dividerBg"
+            class="
+              w-full
+              shadow
+              items-center
+              px-4
+              py-2
+              flex-grow
+              focus:outline-none
+              border border-gray-100
+              rounded
+              focus:ring-2
+              ring-dividerBg
+            "
             placeholder="Гражданство"
             @input="$emit('openSave', true)"
           />
@@ -187,7 +312,19 @@
           <input
             v-model="men[idx].register"
             type="text"
-            class="w-full shadow items-center px-4 py-2 flex-grow focus:outline-none border border-gray-100 rounded focus:ring-2 ring-dividerBg"
+            class="
+              w-full
+              shadow
+              items-center
+              px-4
+              py-2
+              flex-grow
+              focus:outline-none
+              border border-gray-100
+              rounded
+              focus:ring-2
+              ring-dividerBg
+            "
             placeholder="Прописка"
             @input="$emit('openSave', true)"
           />
@@ -195,7 +332,19 @@
           <input
             v-model="men[idx].salary"
             type="number"
-            class="w-full shadow items-center px-4 py-2 flex-grow focus:outline-none border border-gray-100 rounded focus:ring-2 ring-dividerBg"
+            class="
+              w-full
+              shadow
+              items-center
+              px-4
+              py-2
+              flex-grow
+              focus:outline-none
+              border border-gray-100
+              rounded
+              focus:ring-2
+              ring-dividerBg
+            "
             placeholder="Зарплата"
             @input="$emit('openSave', true)"
           />
@@ -204,7 +353,19 @@
         <textarea
           v-model="men[idx].info"
           rows="2"
-          class="w-full border-2 rounded shadow h-full px-2 py-1 focus:outline-none focus:ring-2 ring-dividerBg flex mt-3"
+          class="
+            w-full
+            border-2
+            rounded
+            shadow
+            h-full
+            px-2
+            py-1
+            focus:outline-none focus:ring-2
+            ring-dividerBg
+            flex
+            mt-3
+          "
           placeholder="Дополнительная информация"
           @keydown.enter.exact.prevent
           @keydown.enter.shift.exact="newline"
@@ -259,7 +420,15 @@
       >
         <div class="flex items-center flex-grow mb-3">
           <div
-            class="flex items-center justify-center font-medium text-gray-700 flex-shrink-0 mr-4"
+            class="
+              flex
+              items-center
+              justify-center
+              font-medium
+              text-gray-700
+              flex-shrink-0
+              mr-4
+            "
           >
             <div class="flex items-center mr-2">
               <svg
@@ -284,7 +453,15 @@
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="transition rounded-md w-6 h-6 p-1 bg-gray-200 hover:bg-red-600 hover:text-white"
+                  class="
+                    transition
+                    rounded-md
+                    w-6
+                    h-6
+                    p-1
+                    bg-gray-200
+                    hover:bg-red-600 hover:text-white
+                  "
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -304,15 +481,44 @@
                       kids[idx].openDialog = false;
                     }
                   "
-                  class="absolute top-full right-0 mt-2 transform translate-x-1/2 bg-white border-2 border-gray-200 rounded-lg z-50 shadow-lg"
+                  class="
+                    absolute
+                    top-full
+                    right-0
+                    mt-2
+                    transform
+                    translate-x-1/2
+                    bg-white
+                    border-2 border-gray-200
+                    rounded-lg
+                    z-50
+                    shadow-lg
+                  "
                 >
                   <div
-                    class="flex flex-col items-center justify-center text-black py-1 px-3"
+                    class="
+                      flex flex-col
+                      items-center
+                      justify-center
+                      text-black
+                      py-1
+                      px-3
+                    "
                   >
                     <span class="text-sm mb-1">Удалить?</span>
                     <div class="flex items-center text-sm">
                       <div
-                        class="py-1 px-3 text-center bg-red-500 mr-2 text-white rounded cursor-pointer shadow"
+                        class="
+                          py-1
+                          px-3
+                          text-center
+                          bg-red-500
+                          mr-2
+                          text-white
+                          rounded
+                          cursor-pointer
+                          shadow
+                        "
                         @click.stop="
                           () => {
                             kids[idx].openDialog = false;
@@ -324,7 +530,16 @@
                       </div>
 
                       <div
-                        class="py-1 px-3 text-center bg-green-500 text-white rounded cursor-pointer shadow"
+                        class="
+                          py-1
+                          px-3
+                          text-center
+                          bg-green-500
+                          text-white
+                          rounded
+                          cursor-pointer
+                          shadow
+                        "
                         @click.stop="kids[idx].openDialog = false"
                       >
                         Отмена
@@ -339,7 +554,21 @@
           <input
             v-model="kids[idx].name"
             type="text"
-            class="w-full shadow items-center px-4 py-2 flex-grow focus:outline-none border border-gray-100 rounded focus:ring-2 ring-dividerBg flex-grow mr-3"
+            class="
+              w-full
+              shadow
+              items-center
+              px-4
+              py-2
+              flex-grow
+              focus:outline-none
+              border border-gray-100
+              rounded
+              focus:ring-2
+              ring-dividerBg
+              flex-grow
+              mr-3
+            "
             placeholder="Имя"
             @input="$emit('openSave', true)"
           />
@@ -347,7 +576,20 @@
           <input
             v-model="kids[idx].age"
             type="number"
-            class="w-full shadow items-center px-4 py-2 flex-grow focus:outline-none border border-gray-100 rounded focus:ring-2 ring-dividerBg flex-grow"
+            class="
+              w-full
+              shadow
+              items-center
+              px-4
+              py-2
+              flex-grow
+              focus:outline-none
+              border border-gray-100
+              rounded
+              focus:ring-2
+              ring-dividerBg
+              flex-grow
+            "
             placeholder="Возраст"
             @input="$emit('openSave', true)"
           />
@@ -356,7 +598,18 @@
         <textarea
           v-model="kids[idx].info"
           rows="2"
-          class="w-full border-2 rounded shadow h-full px-2 py-1 focus:outline-none focus:ring-2 ring-dividerBg flex"
+          class="
+            w-full
+            border-2
+            rounded
+            shadow
+            h-full
+            px-2
+            py-1
+            focus:outline-none focus:ring-2
+            ring-dividerBg
+            flex
+          "
           placeholder="Дополнительная информация"
           @keydown.enter.exact.prevent
           @keydown.enter.shift.exact="newline"
@@ -406,7 +659,15 @@
       >
         <div class="flex items-center flex-grow mb-3">
           <div
-            class="flex items-center justify-center font-medium text-gray-700 flex-shrink-0 mr-4"
+            class="
+              flex
+              items-center
+              justify-center
+              font-medium
+              text-gray-700
+              flex-shrink-0
+              mr-4
+            "
           >
             <div class="flex items-center mr-2">
               <svg
@@ -432,7 +693,15 @@
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="transition rounded-md w-6 h-6 p-1 bg-gray-200 hover:bg-red-600 hover:text-white"
+                  class="
+                    transition
+                    rounded-md
+                    w-6
+                    h-6
+                    p-1
+                    bg-gray-200
+                    hover:bg-red-600 hover:text-white
+                  "
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -452,15 +721,44 @@
                       pets[idx].openDialog = false;
                     }
                   "
-                  class="absolute top-full right-0 mt-2 transform translate-x-1/2 bg-white border-2 border-gray-200 rounded-lg z-50 shadow-lg"
+                  class="
+                    absolute
+                    top-full
+                    right-0
+                    mt-2
+                    transform
+                    translate-x-1/2
+                    bg-white
+                    border-2 border-gray-200
+                    rounded-lg
+                    z-50
+                    shadow-lg
+                  "
                 >
                   <div
-                    class="flex flex-col items-center justify-center text-black py-1 px-3"
+                    class="
+                      flex flex-col
+                      items-center
+                      justify-center
+                      text-black
+                      py-1
+                      px-3
+                    "
                   >
                     <span class="text-sm mb-1">Удалить?</span>
                     <div class="flex items-center text-sm">
                       <div
-                        class="py-1 px-3 text-center bg-red-500 mr-2 text-white rounded cursor-pointer shadow"
+                        class="
+                          py-1
+                          px-3
+                          text-center
+                          bg-red-500
+                          mr-2
+                          text-white
+                          rounded
+                          cursor-pointer
+                          shadow
+                        "
                         @click.stop="
                           () => {
                             pets[idx].openDialog = false;
@@ -472,7 +770,16 @@
                       </div>
 
                       <div
-                        class="py-1 px-3 text-center bg-green-500 text-white rounded cursor-pointer shadow"
+                        class="
+                          py-1
+                          px-3
+                          text-center
+                          bg-green-500
+                          text-white
+                          rounded
+                          cursor-pointer
+                          shadow
+                        "
                         @click.stop="pets[idx].openDialog = false"
                       >
                         Отмена
@@ -487,7 +794,21 @@
           <input
             v-model="pets[idx].type"
             type="text"
-            class="w-full shadow items-center px-4 py-2 flex-grow focus:outline-none border border-gray-100 rounded focus:ring-2 ring-dividerBg flex-grow mr-3"
+            class="
+              w-full
+              shadow
+              items-center
+              px-4
+              py-2
+              flex-grow
+              focus:outline-none
+              border border-gray-100
+              rounded
+              focus:ring-2
+              ring-dividerBg
+              flex-grow
+              mr-3
+            "
             placeholder="Кошка, собака и т.д."
             @input="$emit('openSave', true)"
           />
@@ -495,7 +816,20 @@
           <input
             v-model="pets[idx].age"
             type="number"
-            class="w-full shadow items-center px-4 py-2 flex-grow focus:outline-none border border-gray-100 rounded focus:ring-2 ring-dividerBg flex-grow"
+            class="
+              w-full
+              shadow
+              items-center
+              px-4
+              py-2
+              flex-grow
+              focus:outline-none
+              border border-gray-100
+              rounded
+              focus:ring-2
+              ring-dividerBg
+              flex-grow
+            "
             placeholder="Возраст"
             @input="$emit('openSave', true)"
           />
@@ -504,7 +838,18 @@
         <textarea
           v-model="pets[idx].info"
           rows="2"
-          class="w-full border-2 rounded shadow h-full px-2 py-1 focus:outline-none focus:ring-2 ring-dividerBg flex"
+          class="
+            w-full
+            border-2
+            rounded
+            shadow
+            h-full
+            px-2
+            py-1
+            focus:outline-none focus:ring-2
+            ring-dividerBg
+            flex
+          "
           placeholder="Дополнительная информация"
           @keydown.enter.exact.prevent
           @keydown.enter.shift.exact="newline"
@@ -587,17 +932,33 @@ export default {
 
   methods: {
     saveInfo() {
-      const frontData = {
-        men: this.men,
-        kids: this.kids,
-        pets: this.pets,
-      };
+      try {
+        const frontData = {
+          men: this.men,
+          kids: this.kids,
+          pets: this.pets,
+        };
 
-      this.$store.dispatch("saveClientComposition", [
-        this.client.id,
-        frontData,
-        this.family,
-      ]);
+        this.$store.dispatch("saveClientComposition", [
+          this.client.id,
+          frontData,
+          this.family,
+        ]);
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
+      }
     },
   },
 

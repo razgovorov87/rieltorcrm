@@ -40,10 +40,27 @@ export default {
     },
 
     async fetchClients() {
-      this.clients = await this.$store.dispatch("fetchClients");
-      this.loading = false;
-      this.refreshList++;
-      this.refreshList2++;
+      try {
+        this.clients = await this.$store.dispatch("fetchClients");
+        this.loading = false;
+        this.refreshList++;
+        this.refreshList2++;
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        this.loading = false;
+        throw e;
+      }
     },
   },
 

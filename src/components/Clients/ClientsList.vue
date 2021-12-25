@@ -227,14 +227,30 @@ export default {
 
   methods: {
     async addNewItem() {
-      const limit = this.isClientLimit();
-      if (limit) {
-        await this.$store.dispatch("catchNewClient");
-      } else {
-        this.$toasts.push({
-          type: "error",
-          message: "У вас не может быть больше 10 клиентов в работе",
-        });
+      try {
+        const limit = this.isClientLimit();
+        if (limit) {
+          await this.$store.dispatch("catchNewClient");
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: "У вас не может быть больше 10 клиентов в работе",
+          });
+        }
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
       }
     },
 

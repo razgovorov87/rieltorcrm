@@ -74,7 +74,23 @@ export default {
   }),
 
   async created() {
-    const user = await store.dispatch("fetchInfo");
+    try {
+      const user = await store.dispatch("fetchInfo");
+    } catch (e) {
+      const msg = e.data["message"];
+      if (msg) {
+        this.$toasts.push({
+          type: "error",
+          message: errors[msg],
+        });
+      } else {
+        this.$toasts.push({
+          type: "error",
+          message: msg,
+        });
+      }
+      throw e;
+    }
     this.$socket.client.emit("login", { id: user.id });
     this.successloadingUser = true;
   },

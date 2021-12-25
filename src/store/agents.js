@@ -17,37 +17,49 @@ export default {
   },
   actions: {
     async fetchAgents({ dispatch, commit }) {
-      const info = await axios.get(`/fetchAgents`);
-      const arr = Object.keys(info.data).map((key) => ({
-        ...info.data[key],
-        id: key,
-      }));
-      commit("setAgents", arr);
-      return arr;
+      try {
+        const info = await axios.get(`/fetchAgents`);
+        const arr = Object.keys(info.data).map((key) => ({
+          ...info.data[key],
+          id: key,
+        }));
+        commit("setAgents", arr);
+        return arr;
+      } catch (e) {
+        throw e;
+      }
     },
 
     async switchAgent({ dispatch }, { clientId, newAgent }) {
-      const uid = await dispatch("getUid");
-      const data = {
-        clientId,
-        managerId: uid,
-        newAgent,
-      };
-      await axios.post(`/switchAgent`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      try {
+        const uid = await dispatch("getUid");
+        const data = {
+          clientId,
+          managerId: uid,
+          newAgent,
+        };
+        await axios.post(`/switchAgent`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } catch (e) {
+        throw e;
+      }
     },
 
     async deleteUser({ dispatch }, agent) {
-      const response = await axios({
-        method: "post",
-        url: `/deleteUser`,
-        data: {
-          agentId: agent.id,
-        },
-      });
+      try {
+        const response = await axios({
+          method: "post",
+          url: `/deleteUser`,
+          data: {
+            agentId: agent.id,
+          },
+        });
+      } catch (e) {
+        throw e;
+      }
     },
   },
 

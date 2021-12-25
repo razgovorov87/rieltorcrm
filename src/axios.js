@@ -18,13 +18,13 @@ export default function axiosSetUp() {
       }
       return config;
     },
-    function(error) {
+    function (error) {
       return Promise.reject(error);
     }
   );
 
   axios.interceptors.response.use(
-    function(response) {
+    function (response) {
       return response;
     },
     async function(error) {
@@ -40,7 +40,7 @@ export default function axiosSetUp() {
         await store.dispatch("refreshToken");
         return axios(originalRequest);
       }
-      return Promise.reject(error);
+      return Promise.reject(error.response);
     }
   );
 }

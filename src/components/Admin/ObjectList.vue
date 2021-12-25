@@ -107,8 +107,24 @@ export default {
 
   async mounted() {
     this.search = null;
-    this.objects = await this.$store.dispatch("fetchObjects");
-    this.filterObj();
+    try {
+      this.objects = await this.$store.dispatch("fetchObjects");
+      this.filterObj();
+    } catch (e) {
+      const msg = e.data["message"];
+      if (msg) {
+        this.$toasts.push({
+          type: "error",
+          message: errors[msg],
+        });
+      } else {
+        this.$toasts.push({
+          type: "error",
+          message: msg,
+        });
+      }
+      throw e;
+    }
   },
 
   methods: {

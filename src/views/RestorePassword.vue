@@ -184,8 +184,24 @@ export default {
     },
 
     async reSendCode() {
-      await this.$store.dispatch("restorePassword", this.login);
-      this.startTimer();
+      try {
+        await this.$store.dispatch("restorePassword", this.login);
+        this.startTimer();
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
+      }
     },
 
     async sendCode() {
@@ -193,9 +209,25 @@ export default {
         this.$v.$touch();
         return;
       }
-      await this.$store.dispatch("restorePassword", this.login);
-      this.startTimer();
-      this.step = 2;
+      try {
+        await this.$store.dispatch("restorePassword", this.login);
+        this.startTimer();
+        this.step = 2;
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
+      }
     },
 
     async verifyCode(restoreCode) {
@@ -203,13 +235,30 @@ export default {
         login: this.login,
         restoreCode,
       };
-      const status = await this.$store.dispatch("verifyCode", formData);
-      if (status == "Correct code") {
-        this.$router.push({
-          name: "Смена пароля",
-          path: "/change-password",
-          params: { formData },
-        });
+
+      try {
+        const status = await this.$store.dispatch("verifyCode", formData);
+        if (status == "Correct code") {
+          this.$router.push({
+            name: "Смена пароля",
+            path: "/change-password",
+            params: { formData },
+          });
+        }
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
       }
     },
 

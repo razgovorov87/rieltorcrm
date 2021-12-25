@@ -45,7 +45,7 @@
           <input
             v-model.trim="$v.login.$model"
             type="text"
-            placeholder="Логин"
+            placeholder="Email"
             class="w-full focus:outline-none text-sm"
             @focus.exact="coloredBorderLogin = true"
             @blur="coloredBorderLogin = false"
@@ -54,7 +54,12 @@
         <span
           v-if="!$v.login.required && $v.login.$dirty"
           class="text-xs text-red-600 italic"
-          >Введите логин</span
+          >Введите Email</span
+        >
+        <span
+          v-if="!$v.login.email && $v.login.$dirty"
+          class="text-xs text-red-600 italic"
+          >Введите правильный Email</span
         >
       </div>
 
@@ -222,7 +227,7 @@
 
 <script>
 import errors from "@/errors";
-import { required, minLength, sameAs } from "vuelidate/lib/validators";
+import { required, minLength, sameAs, email } from "vuelidate/lib/validators";
 export default {
   data: () => ({
     login: "",
@@ -234,7 +239,7 @@ export default {
   }),
 
   validations: {
-    login: { required },
+    login: { required, email },
     password: { required, minLength: minLength(6) },
   },
 
@@ -254,21 +259,30 @@ export default {
       };
 
       try {
-        // const response = await this.$store.dispatch('checkVerify', formData)
-        // if(!response) {
-        //     this.btnLoading = false
-        //     this.$router.push('/verify')
-        //     return
-        // }
+        const response = await this.$store.dispatch("checkVerify", formData);
+        if (!response) {
+          this.btnLoading = false;
+          this.$router.push("/verify");
+          return;
+        }
         await this.$store.dispatch("login", formData);
         this.btnLoading = false;
         this.$router.push("/");
       } catch (e) {
-        this.$toasts.push({
-          type: "error",
-          message: errors[e.code],
-        });
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
         this.btnLoading = false;
+        throw e;
       }
     },
   },

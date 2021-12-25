@@ -68,6 +68,7 @@ import AdminColumn from "@/components/Admin/AdminColumn";
 import ClientDrawer from "@/components/Admin/ClientDrawer";
 import ItemDrawer from "@/components/Clients/ItemDrawer";
 import NoData from "@/components/NoData";
+import errors from "../errors";
 export default {
   data: () => ({
     loading: true,
@@ -104,8 +105,24 @@ export default {
     async fetchClients() {
       this.loading = true;
       this.clients = [];
-      this.clients = await this.$store.dispatch("fetchClients");
-      this.loading = false;
+      try {
+        this.clients = await this.$store.dispatch("fetchClients");
+        this.loading = false;
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
+      }
     },
   },
 

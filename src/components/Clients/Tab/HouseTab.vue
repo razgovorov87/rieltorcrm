@@ -6,7 +6,13 @@
         <div class="flex mt-2 items-center">
           <span class="font-medium text-gray-500 w-24">Адрес:</span>
           <span
-            class="border-b text-gray-500 border-b border-gray-500 ml-2 cursor-pointer"
+            class="
+              border-b
+              text-gray-500
+              border-b border-gray-500
+              ml-2
+              cursor-pointer
+            "
             @click="$emit('openObjectList')"
             >{{ interestingObj.adress }}</span
           >
@@ -51,14 +57,28 @@
           <a
             :href="interestingObj.url"
             target="__blank"
-            class="border-b text-gray-500 ml-2 border-b border-gray-500 truncate"
+            class="
+              border-b
+              text-gray-500
+              ml-2
+              border-b border-gray-500
+              truncate
+            "
             >{{ interestingObj.url }}</a
           >
         </div>
       </div>
       <div
         v-else
-        class="flex justify-center items-center mt-4 font-medium text-gray-500 cursor-pointer"
+        class="
+          flex
+          justify-center
+          items-center
+          mt-4
+          font-medium
+          text-gray-500
+          cursor-pointer
+        "
         @click="$emit('openObjectList')"
       >
         <svg
@@ -95,7 +115,19 @@
       <textarea
         v-model="exceptions"
         rows="4"
-        class="w-full border-2 rounded shadow h-full px-2 py-1 focus:outline-none focus:ring-2 ring-dividerBg flex mt-2"
+        class="
+          w-full
+          border-2
+          rounded
+          shadow
+          h-full
+          px-2
+          py-1
+          focus:outline-none focus:ring-2
+          ring-dividerBg
+          flex
+          mt-2
+        "
         placeholder="Какие Вы привели аргументы, чтобы клиент отказался от интересующей квартиры"
         @keydown.enter.exact.prevent
         @input="$emit('openSave', true)"
@@ -134,11 +166,27 @@ export default {
 
   methods: {
     async saveExceptions() {
-      const data = {
-        clientId: this.client.id,
-        exceptions: this.exceptions,
-      };
-      await this.$store.dispatch("saveExceptions", data);
+      try {
+        const data = {
+          clientId: this.client.id,
+          exceptions: this.exceptions,
+        };
+        await this.$store.dispatch("saveExceptions", data);
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
+      }
     },
 
     newline() {

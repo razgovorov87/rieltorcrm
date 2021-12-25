@@ -3,13 +3,32 @@
     <table class="w-full">
       <thead>
         <tr
-          class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal flex w-full items-center"
+          class="
+            bg-gray-200
+            text-gray-600
+            uppercase
+            text-sm
+            leading-normal
+            flex
+            w-full
+            items-center
+          "
         >
           <th class="py-3 px-6 text-left w-2/12 flex items-center">
             Агент
             <div class="ml-2 w-full">
               <div
-                class="flex-grow border rounded bg-white cursor-pointer relative border-gray-300 text-xs w-full"
+                class="
+                  flex-grow
+                  border
+                  rounded
+                  bg-white
+                  cursor-pointer
+                  relative
+                  border-gray-300
+                  text-xs
+                  w-full
+                "
               >
                 <div
                   class="flex justify-between items-center px-2 py-1"
@@ -42,7 +61,16 @@
                   "
                 >
                   <div
-                    class="bg-white flex flex-col border rounded shadow border-gray-100 overflow-hidden w-52"
+                    class="
+                      bg-white
+                      flex flex-col
+                      border
+                      rounded
+                      shadow
+                      border-gray-100
+                      overflow-hidden
+                      w-52
+                    "
                   >
                     <span
                       @click="
@@ -52,7 +80,16 @@
                           openList = false;
                         }
                       "
-                      class="border-b px-2 py-2 hover:bg-dividerBg text-gray-400 hover:text-white select-none italic"
+                      class="
+                        border-b
+                        px-2
+                        py-2
+                        hover:bg-dividerBg
+                        text-gray-400
+                        hover:text-white
+                        select-none
+                        italic
+                      "
                       >Все агенты</span
                     >
                     <span
@@ -60,7 +97,13 @@
                         (agent) => agent.verify && agent.status !== 'deleted'
                       )"
                       :key="item + idx"
-                      class="border-b px-2 py-2 hover:bg-dividerBg hover:text-white select-none"
+                      class="
+                        border-b
+                        px-2
+                        py-2
+                        hover:bg-dividerBg hover:text-white
+                        select-none
+                      "
                       @click="
                         ($event) => {
                           user = takeAgentInfo(item.id);
@@ -87,7 +130,14 @@
       </thead>
       <tbody
         ref="tbody"
-        class="text-gray-600 text-sm font-light overflow-y-auto flex flex-col w-full overflow-x-auto"
+        class="
+          text-gray-600 text-sm
+          font-light
+          overflow-y-auto
+          flex flex-col
+          w-full
+          overflow-x-auto
+        "
         style="max-height: 84vh"
       >
         <TableGroup
@@ -155,7 +205,23 @@ export default {
 
   methods: {
     async agentsInfo() {
-      this.agents = await this.$store.dispatch("fetchAgents");
+      try {
+        this.agents = await this.$store.dispatch("fetchAgents");
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
+      }
     },
 
     filterClients() {

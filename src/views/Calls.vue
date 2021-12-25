@@ -184,7 +184,27 @@ export default {
 
   methods: {
     async getEvents() {
-      const result = await this.$store.dispatch("getCalls");
+      try {
+        const result = await this.$store.dispatch("getCalls");
+        this.filterCalls(result);
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
+      }
+    },
+
+    filterCalls(result) {
       if (Object.keys(result).length) {
         Object.keys(result).forEach((authorId) => {
           const events = [];

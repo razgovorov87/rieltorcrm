@@ -123,27 +123,59 @@ export default {
   data: () => ({}),
   methods: {
     onWork() {
-      this.$store.dispatch("expiredClientOnWork", this.client["alertId"]);
-      this.$socket.client.emit("alert", {
-        alertId: this.client["alertId"],
-        readed: true,
-      });
+      try {
+        this.$store.dispatch("expiredClientOnWork", this.client["alertId"]);
+        this.$socket.client.emit("alert", {
+          alertId: this.client["alertId"],
+          readed: true,
+        });
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
+      }
     },
     onCancel() {
-      this.$store.dispatch("expiredClientOnWork", {
-        alertId: this.client["alertId"],
-        clientId: this.client["msg"]["clientId"],
-      });
-      this.$store.dispatch("refuseClient", {
-        cause: "Другое",
-        otherCause: "Авто отказ по времени",
-        comment: "",
-        clientId: this.client["msg"]["clientId"],
-      });
-      this.$socket.client.emit("alert", {
-        alertId: this.client["alertId"],
-        readed: true,
-      });
+      try {
+        this.$store.dispatch("expiredClientOnWork", {
+          alertId: this.client["alertId"],
+          clientId: this.client["msg"]["clientId"],
+        });
+        this.$store.dispatch("refuseClient", {
+          cause: "Другое",
+          otherCause: "Авто отказ по времени",
+          comment: "",
+          clientId: this.client["msg"]["clientId"],
+        });
+        this.$socket.client.emit("alert", {
+          alertId: this.client["alertId"],
+          readed: true,
+        });
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
+      }
     },
   },
 };

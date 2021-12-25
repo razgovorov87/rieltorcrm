@@ -428,10 +428,18 @@ export default {
         await this.$store.dispatch("logout");
         this.$router.push("/login");
       } catch (e) {
-        this.$toasts.push({
-          type: "error",
-          message: "Что-то пошло не так.",
-        });
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
         throw e;
       }
     },

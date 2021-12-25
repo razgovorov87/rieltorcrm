@@ -168,7 +168,19 @@
         <transition name="opacity" mode="out-in">
           <div
             v-if="!btnLoading"
-            class="bg-dividerBg w-full py-2 rounded-lg font-semibold text-white cursor-pointer select-none text-center flex justify-center"
+            class="
+              bg-dividerBg
+              w-full
+              py-2
+              rounded-lg
+              font-semibold
+              text-white
+              cursor-pointer
+              select-none
+              text-center
+              flex
+              justify-center
+            "
             @click="register"
           >
             Сохранить
@@ -176,14 +188,26 @@
 
           <div
             v-else
-            class="bg-dividerBg w-full py-2 rounded-lg font-semibold text-white cursor-pointer select-none text-center flex justify-center"
+            class="
+              bg-dividerBg
+              w-full
+              py-2
+              rounded-lg
+              font-semibold
+              text-white
+              cursor-pointer
+              select-none
+              text-center
+              flex
+              justify-center
+            "
           >
             <svg
               class="w-6 animate-spin mr-2"
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
               viewBox="0 0 50 50"
-              style="enable-background:new 0 0 50 50;"
+              style="enable-background: new 0 0 50 50"
               xml:space="preserve"
             >
               <path
@@ -196,7 +220,13 @@
         </transition>
         <router-link
           to="/register"
-          class="text-gray-400 font-semibold mt-4 focus:outline-none select-none"
+          class="
+            text-gray-400
+            font-semibold
+            mt-4
+            focus:outline-none
+            select-none
+          "
           >Назад</router-link
         >
       </div>
@@ -262,7 +292,20 @@ export default {
         this.btnLoading = false;
         this.$router.push("/verify");
       } catch (e) {
-        console.log(e);
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        this.btnLoading = false;
+        throw e;
       }
     },
   },

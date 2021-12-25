@@ -81,9 +81,7 @@
               rounded
               bg-green-600
               text-white
-              hover:bg-green-700
-              hover:shadow-lg
-              hover:text-gray-200
+              hover:bg-green-700 hover:shadow-lg hover:text-gray-200
               p-1
               px-3
               text-lg
@@ -106,9 +104,7 @@
               rounded
               bg-red-600
               text-white
-              hover:bg-red-700
-              hover:shadow-lg
-              hover:text-gray-200
+              hover:bg-red-700 hover:shadow-lg hover:text-gray-200
               p-1
               px-3
               text-lg
@@ -146,18 +142,50 @@ export default {
 
   methods: {
     async agentsInfo() {
-      this.agents = await this.$store.dispatch("fetchAgents");
+      try {
+        this.agents = await this.$store.dispatch("fetchAgents");
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
+      }
     },
 
     async deleteUser() {
-      await this.$store.dispatch("deleteUser", this.deleteAgent);
-      this.verifyDelete = false;
-      this.deleteAgent = null;
-      this.agentsInfo();
-      this.$toasts.push({
-        type: "success",
-        message: "Агент успешно удален",
-      });
+      try {
+        await this.$store.dispatch("deleteUser", this.deleteAgent);
+        this.verifyDelete = false;
+        this.deleteAgent = null;
+        this.agentsInfo();
+        this.$toasts.push({
+          type: "success",
+          message: "Агент успешно удален",
+        });
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
+      }
     },
   },
 

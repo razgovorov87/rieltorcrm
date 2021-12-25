@@ -1,10 +1,27 @@
 <template>
   <div
-    class="absolute inset-0 bg-black bg-opacity-60 h-screen z-50 flex items-center justify-center"
+    class="
+      absolute
+      inset-0
+      bg-black bg-opacity-60
+      h-screen
+      z-50
+      flex
+      items-center
+      justify-center
+    "
   >
     <div class="w-1/3 bg-white flex flex-col rounded">
       <div
-        class="flex justify-center items-center px-6 py-4 border-b text-gray-600"
+        class="
+          flex
+          justify-center
+          items-center
+          px-6
+          py-4
+          border-b
+          text-gray-600
+        "
       >
         <div class="flex-grow flex items-center">
           <svg
@@ -26,7 +43,21 @@
           >
         </div>
         <button
-          class="focus:outline-none rounded-full hover:bg-gray-400 p-1 flex items-center justify-center transition relative flex-shrink-0 w-8 h-8 cursor-pointer"
+          class="
+            focus:outline-none
+            rounded-full
+            hover:bg-gray-400
+            p-1
+            flex
+            items-center
+            justify-center
+            transition
+            relative
+            flex-shrink-0
+            w-8
+            h-8
+            cursor-pointer
+          "
           @click="$emit('close')"
         >
           <svg
@@ -49,7 +80,15 @@
       <div class="flex-grow py-4 px-6">
         <h3 class="font-medium text-gray-500 mb-2">Текущий агент</h3>
         <div
-          class="flex-grow border rounded bg-gray-300 relative border-gray-400 mb-4"
+          class="
+            flex-grow
+            border
+            rounded
+            bg-gray-300
+            relative
+            border-gray-400
+            mb-4
+          "
         >
           <div class="flex justify-between items-center px-4 py-2">
             <span v-if="client.agent">{{ takeAgentInfo(client.agent) }}</span>
@@ -59,7 +98,16 @@
 
         <h3 class="font-medium text-gray-500">Новый агент</h3>
         <div
-          class="flex-grow border rounded bg-white cursor-pointer relative border-gray-300 mb-2"
+          class="
+            flex-grow
+            border
+            rounded
+            bg-white
+            cursor-pointer
+            relative
+            border-gray-300
+            mb-2
+          "
         >
           <div
             class="flex justify-between items-center px-4 py-2"
@@ -94,7 +142,15 @@
             "
           >
             <div
-              class="bg-white flex flex-col border rounded shadow border-gray-100 overflow-hidden"
+              class="
+                bg-white
+                flex flex-col
+                border
+                rounded
+                shadow
+                border-gray-100
+                overflow-hidden
+              "
             >
               <span
                 v-for="(item, idx) in agents.filter(
@@ -104,7 +160,13 @@
                     agent.status !== 'deleted'
                 )"
                 :key="item + idx"
-                class="border-b px-4 py-2 hover:bg-dividerBg hover:text-white select-none"
+                class="
+                  border-b
+                  px-4
+                  py-2
+                  hover:bg-dividerBg hover:text-white
+                  select-none
+                "
                 @click="
                   ($event) => {
                     newAgent = $event.target.innerText;
@@ -120,7 +182,24 @@
 
       <div class="flex justify-center items-center px-6 py-4 border-t">
         <button
-          class="focus:outline-none rounded bg-dividerBg text-white hover:bg-darkDivider hover:shadow-lg hover:text-gray-200 p-1 px-3 text-lg font-medium flex items-center justify-center transition relative flex-shrink-0 cursor-pointer"
+          class="
+            focus:outline-none
+            rounded
+            bg-dividerBg
+            text-white
+            hover:bg-darkDivider hover:shadow-lg hover:text-gray-200
+            p-1
+            px-3
+            text-lg
+            font-medium
+            flex
+            items-center
+            justify-center
+            transition
+            relative
+            flex-shrink-0
+            cursor-pointer
+          "
           @click="switchAgent"
         >
           Передать клиента
@@ -140,7 +219,23 @@ export default {
   }),
 
   async mounted() {
-    this.agents = await this.$store.dispatch("fetchAgents");
+    try {
+      this.agents = await this.$store.dispatch("fetchAgents");
+    } catch (e) {
+      const msg = e.data["message"];
+      if (msg) {
+        this.$toasts.push({
+          type: "error",
+          message: errors[msg],
+        });
+      } else {
+        this.$toasts.push({
+          type: "error",
+          message: msg,
+        });
+      }
+      throw e;
+    }
   },
 
   methods: {
@@ -167,6 +262,18 @@ export default {
         await this.$parent.$parent.fetchClients();
         this.$emit("close");
       } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
         throw e;
       }
     },

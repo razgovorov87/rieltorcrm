@@ -11,7 +11,15 @@
         <label class="font-medium w-24 text-gray-600">Телефон</label>
         <div class="flex flex-grow bg-white rounded border-2 border-gray-300">
           <div
-            class="flex items-center justify-center py-2 px-3 bg-gray-200 flex-shrink-0"
+            class="
+              flex
+              items-center
+              justify-center
+              py-2
+              px-3
+              bg-gray-200
+              flex-shrink-0
+            "
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +56,23 @@
                 />
               </svg>
               <span
-                class="absolute -top-12 -left-24 transform translate-x-1.5 text-white bg-darkDivider z-50 rounded py-1 px-2 opacity-0 transition duration-300 group-hover:opacity-100"
+                class="
+                  absolute
+                  -top-12
+                  -left-24
+                  transform
+                  translate-x-1.5
+                  text-white
+                  bg-darkDivider
+                  z-50
+                  rounded
+                  py-1
+                  px-2
+                  opacity-0
+                  transition
+                  duration-300
+                  group-hover:opacity-100
+                "
                 >Пропущенный</span
               >
             </span>
@@ -59,10 +83,26 @@
       <div class="flex items-center">
         <label class="font-medium text-gray-600 w-24">ФИО</label>
         <div
-          class="flex flex-grow bg-white rounded border-2 border-gray-300 group focus:ring-2 ring-blue-500"
+          class="
+            flex flex-grow
+            bg-white
+            rounded
+            border-2 border-gray-300
+            group
+            focus:ring-2
+            ring-blue-500
+          "
         >
           <div
-            class="flex items-center justify-center py-2 px-3 bg-gray-200 flex-shrink-0"
+            class="
+              flex
+              items-center
+              justify-center
+              py-2
+              px-3
+              bg-gray-200
+              flex-shrink-0
+            "
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -119,10 +159,26 @@
       <div class="flex items-center">
         <label class="font-medium w-24 text-gray-600">Бюджет</label>
         <div
-          class="flex flex-grow bg-white rounded border-2 border-gray-300 group focus:ring-2 ring-blue-500"
+          class="
+            flex flex-grow
+            bg-white
+            rounded
+            border-2 border-gray-300
+            group
+            focus:ring-2
+            ring-blue-500
+          "
         >
           <div
-            class="flex items-center justify-center py-2 px-3 bg-gray-200 flex-shrink-0"
+            class="
+              flex
+              items-center
+              justify-center
+              py-2
+              px-3
+              bg-gray-200
+              flex-shrink-0
+            "
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -183,7 +239,17 @@
         <div class="flex items-center">
           <span class="font-medium text-gray-600">Состав проживающих:</span>
           <span
-            class="text-sm rounded-full font-medium py-1 px-3 bg-white shadow text-center ml-2"
+            class="
+              text-sm
+              rounded-full
+              font-medium
+              py-1
+              px-3
+              bg-white
+              shadow
+              text-center
+              ml-2
+            "
             >{{ compositionType }}</span
           >
         </div>
@@ -192,10 +258,36 @@
             <div
               v-for="(man, idx) in composition.men"
               :key="man + idx"
-              class="flex flex-col bg-white w-full relative pt-4 px-2 pb-2 rounded shadow text-sm mb-6"
+              class="
+                flex flex-col
+                bg-white
+                w-full
+                relative
+                pt-4
+                px-2
+                pb-2
+                rounded
+                shadow
+                text-sm
+                mb-6
+              "
             >
               <div
-                class="absolute top-0 left-0 transform border-2 -translate-x-4 -translate-y-1/2 flex items-center justify-center px-2 py-1 bg-white rounded-full"
+                class="
+                  absolute
+                  top-0
+                  left-0
+                  transform
+                  border-2
+                  -translate-x-4 -translate-y-1/2
+                  flex
+                  items-center
+                  justify-center
+                  px-2
+                  py-1
+                  bg-white
+                  rounded-full
+                "
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -245,10 +337,36 @@
           <div
             v-for="(man, idx) in composition.kids"
             :key="man + idx"
-            class="flex flex-col bg-white w-full relative pt-4 px-2 pb-2 rounded shadow text-sm mb-6"
+            class="
+              flex flex-col
+              bg-white
+              w-full
+              relative
+              pt-4
+              px-2
+              pb-2
+              rounded
+              shadow
+              text-sm
+              mb-6
+            "
           >
             <div
-              class="absolute top-0 left-0 transform border-2 -translate-x-4 -translate-y-1/2 flex items-center justify-center px-2 py-1 bg-white rounded-full"
+              class="
+                absolute
+                top-0
+                left-0
+                transform
+                border-2
+                -translate-x-4 -translate-y-1/2
+                flex
+                items-center
+                justify-center
+                px-2
+                py-1
+                bg-white
+                rounded-full
+              "
             >
               <svg
                 class="mr-2 w-5 h-5 text-gray-700"
@@ -281,10 +399,36 @@
           <div
             v-for="(man, idx) in composition.pets"
             :key="man + idx"
-            class="flex flex-col bg-white w-full relative pt-4 px-2 pb-2 rounded shadow text-sm mb-6"
+            class="
+              flex flex-col
+              bg-white
+              w-full
+              relative
+              pt-4
+              px-2
+              pb-2
+              rounded
+              shadow
+              text-sm
+              mb-6
+            "
           >
             <div
-              class="absolute top-0 left-0 transform border-2 -translate-x-4 -translate-y-1/2 flex items-center justify-center px-2 py-1 bg-white rounded-full"
+              class="
+                absolute
+                top-0
+                left-0
+                transform
+                border-2
+                -translate-x-4 -translate-y-1/2
+                flex
+                items-center
+                justify-center
+                px-2
+                py-1
+                bg-white
+                rounded-full
+              "
             >
               <svg
                 class="mr-2 w-5 h-5 text-gray-700"
@@ -322,12 +466,26 @@
           <span class="font-medium text-gray-600 mb-2">Просмотры квартир:</span>
         </div>
         <div
-          class="flex flex-col flex-grow rounded overflow-hidden border-2 border-gray-300"
+          class="
+            flex flex-col flex-grow
+            rounded
+            overflow-hidden
+            border-2 border-gray-300
+          "
         >
           <div
             v-for="(item, idx) in this.reserveArr"
             :key="item + idx"
-            class="w-full bg-white px-3 py-2 border-b flex items-center justify-between"
+            class="
+              w-full
+              bg-white
+              px-3
+              py-2
+              border-b
+              flex
+              items-center
+              justify-between
+            "
           >
             <div class="flex items-center flex-grow">
               <svg
@@ -450,15 +608,47 @@ export default {
 
   async mounted() {
     this.updateReserve();
-    this.agents = await this.$store.dispatch("fetchAgents");
+    try {
+      this.agents = await this.$store.dispatch("fetchAgents");
+    } catch (e) {
+      const msg = e.data["message"];
+      if (msg) {
+        this.$toasts.push({
+          type: "error",
+          message: errors[msg],
+        });
+      } else {
+        this.$toasts.push({
+          type: "error",
+          message: msg,
+        });
+      }
+      throw e;
+    }
   },
 
   methods: {
     async updateReserve() {
-      this.reserveArr = await this.$store.dispatch(
-        "fetchClientReserves",
-        this.info.id
-      );
+      try {
+        this.reserveArr = await this.$store.dispatch(
+          "fetchClientReserves",
+          this.info.id
+        );
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
+      }
     },
 
     updateInfo(info) {
@@ -509,7 +699,7 @@ export default {
   computed: {
     sortedReserve() {
       if (!this.reserveArr) return [];
-      const result = this.reserveArr.sort(function(a, b) {
+      const result = this.reserveArr.sort(function (a, b) {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
 

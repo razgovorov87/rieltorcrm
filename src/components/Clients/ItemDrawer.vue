@@ -428,6 +428,18 @@ export default {
         this.$refs.proposedTab.updateReserve();
         this.$refs.infoBlock.updateReserve();
       } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
         throw e;
       }
     },
@@ -461,7 +473,23 @@ export default {
       }
       this.$refs.familyTab.saveInfo();
       this.$refs.criterionTab.saveCriterion();
-      const clientInfo = await this.$store.dispatch("saveClientInfo", info);
+      try {
+        const clientInfo = await this.$store.dispatch("saveClientInfo", info);
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
+      }
       this.$refs.infoBlock.updateInfo(clientInfo);
       this.openSave(false);
       this.$toasts.push({
@@ -486,6 +514,18 @@ export default {
         const log = await this.$store.dispatch("saveCategory", data);
         this.$refs.logsBlock.pushLog(log);
       } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
         throw e;
       }
     },
@@ -497,9 +537,25 @@ export default {
         client: this.client,
         obj,
       };
-      this.$store.dispatch("saveInterestingObj", data);
-      this.$parent.refreshList++;
-      this.$parent.refreshList2++;
+      try {
+        this.$store.dispatch("saveInterestingObj", data);
+        this.$parent.refreshList++;
+        this.$parent.refreshList2++;
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
+      }
     },
 
     cancel() {
@@ -532,6 +588,18 @@ export default {
       try {
         await this.$store.dispatch("saveNote", data);
       } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
         throw e;
       }
     },

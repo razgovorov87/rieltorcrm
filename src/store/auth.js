@@ -115,27 +115,35 @@ export default {
     },
 
     async verifyAgent({ dispatch }, id) {
-      const data = {
-        userId: id,
+      try {
+        const data = {
+          userId: id,
+        };
+        await axios.post("/verifyAgent", data);
+      } catch (error) {
+        throw error;
       }
-      await axios.post('/verifyAgent', data);
     },
 
     async restorePassword({ dispatch }, login) {
-      const data = {
-        login,
-      };
-      await axios.post('/restore', data);
+      try {
+        const data = {
+          login,
+        };
+        await axios.post("/restore", data);
+      } catch (e) {
+        throw e;
+      }
     },
 
-    async verifyCode({ dispatch }, {login, restoreCode}) {
-      const data = {
-        login,
-        restoreCode,
-      };
+    async verifyCode({ dispatch }, { login, restoreCode }) {
       try {
-        const response = await axios.post('/verifyRestore', data);
-        return response.data['message'];
+        const data = {
+          login,
+          restoreCode,
+        };
+        const response = await axios.post("/verifyRestore", data);
+        return response.data["message"];
       } catch (e) {
         throw e;
       }
@@ -164,20 +172,40 @@ export default {
     },
 
     async checkLogin({ dispatch }, login) {
-      const data = {
-        login,
-      };
-      const response = await axios.post(`/checkLogin`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      return response.data.status;
+      try {
+        const data = {
+          login,
+        };
+        const response = await axios.post(`/checkLogin`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        return response.data.status;
+      } catch (e) {
+        throw e;
+      }
+    },
+
+    async checkVerify({ dispatch }, { login }) {
+      try {
+        const data = {
+          login,
+        };
+        const response = await axios.post(`/checkVerify`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        return response.data;
+      } catch (e) {
+        throw e;
+      }
     },
 
     async logout({ dispatch, commit }) {
-      commit('clearUserData');
-      router.push('/login');
+      commit("clearUserData");
+      router.push("/login");
     },
   },
 };

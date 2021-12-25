@@ -13,7 +13,20 @@
           />
 
           <div
-            class="flex text-gray-800 items-center py-2 px-4 border-r relative cursor-pointer select-none flex-shrink-0 w-52 justify-between"
+            class="
+              flex
+              text-gray-800
+              items-center
+              py-2
+              px-4
+              border-r
+              relative
+              cursor-pointer
+              select-none
+              flex-shrink-0
+              w-52
+              justify-between
+            "
             @click="typeList = !typeList"
           >
             <span>{{ type }}</span>
@@ -42,19 +55,43 @@
             >
               <div class="flex flex-col w-full">
                 <div
-                  class="border-b px-2 py-2 hover:bg-gray-100 flex justify-between items-center"
+                  class="
+                    border-b
+                    px-2
+                    py-2
+                    hover:bg-gray-100
+                    flex
+                    justify-between
+                    items-center
+                  "
                   @click="type = $event.target.innerText"
                 >
                   Все типы
                 </div>
                 <div
-                  class="border-b px-2 py-2 hover:bg-gray-100 flex justify-between items-center"
+                  class="
+                    border-b
+                    px-2
+                    py-2
+                    hover:bg-gray-100
+                    flex
+                    justify-between
+                    items-center
+                  "
                   @click="type = $event.target.innerText"
                 >
                   Квартира
                 </div>
                 <div
-                  class="border-b px-2 py-2 hover:bg-gray-100 flex justify-between items-center"
+                  class="
+                    border-b
+                    px-2
+                    py-2
+                    hover:bg-gray-100
+                    flex
+                    justify-between
+                    items-center
+                  "
                   @click="type = $event.target.innerText"
                 >
                   Дом
@@ -88,7 +125,7 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-col flex-grow" style="height: calc(100vh - 152px);">
+    <div class="flex flex-col flex-grow" style="height: calc(100vh - 152px)">
       <div class="headerTable">
         <div class="headerTable-item borderNone"></div>
         <div class="headerTable-item textLeft">Адрес</div>
@@ -98,7 +135,19 @@
         <div class="headerTable-item flex justify-center">
           <button
             v-if="checkAdmin"
-            class="flex items-center bg-blue-600 text-white font-semibold focus:outline-none py-1 px-2 transition hover:bg-blue-500 focus:ring-2"
+            class="
+              flex
+              items-center
+              bg-blue-600
+              text-white
+              font-semibold
+              focus:outline-none
+              py-1
+              px-2
+              transition
+              hover:bg-blue-500
+              focus:ring-2
+            "
             @click="objectDrawer = true"
           >
             <svg
@@ -121,7 +170,15 @@
       </div>
       <div v-if="objects" class="flex-grow overflow-y-auto">
         <div
-          class="flex items-center object bg-white border-b hover:bg-gray-100 cursor-pointer"
+          class="
+            flex
+            items-center
+            object
+            bg-white
+            border-b
+            hover:bg-gray-100
+            cursor-pointer
+          "
           v-for="obj in filterObject()"
           :key="obj.id"
         >
@@ -145,14 +202,20 @@
           >
             <span
               class="py-1 px-2 text-sm text-blue-800 truncate underline"
-              style="max-width: 300px;"
+              style="max-width: 300px"
               >{{ obj.url }}</span
             >
           </a>
 
           <div v-if="checkAdmin" class="flex justify-center items-center">
             <div
-              class="w-4 mr-2 transform hover:text-blue-500 hover:scale-110 cursor-pointer"
+              class="
+                w-4
+                mr-2
+                transform
+                hover:text-blue-500 hover:scale-110
+                cursor-pointer
+              "
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -171,7 +234,13 @@
             </div>
             <div
               v-if="checkAdmin"
-              class="w-4 mr-2 transform hover:text-red-500 hover:scale-110 cursor-pointer"
+              class="
+                w-4
+                mr-2
+                transform
+                hover:text-red-500 hover:scale-110
+                cursor-pointer
+              "
               @click="deleteObject(obj)"
             >
               <svg
@@ -218,7 +287,21 @@
 
     <div
       v-if="attention"
-      class="absolute top-24 left-1/2 transform -translate-x-1/2 text-center shadow rounded bg-white shadow-lg px-3 py-2 z-40"
+      class="
+        absolute
+        top-24
+        left-1/2
+        transform
+        -translate-x-1/2
+        text-center
+        shadow
+        rounded
+        bg-white
+        shadow-lg
+        px-3
+        py-2
+        z-40
+      "
     >
       <span class="text-red-600 font-medium">Внимание!</span> Данная страница с
       объектами не всегда содержит 100% всех наших объектов, поэтому если клиент
@@ -234,7 +317,16 @@
       >
       <div class="absolute top-0 -right-1 transform translate-x-full">
         <div
-          class="flex justify-center items-center p-1.5 bg-white rounded-full cursor-pointer z-50"
+          class="
+            flex
+            justify-center
+            items-center
+            p-1.5
+            bg-white
+            rounded-full
+            cursor-pointer
+            z-50
+          "
           @click="attention = false"
         >
           <svg
@@ -297,6 +389,18 @@ export default {
       try {
         this.objects = await this.$store.dispatch("fetchObjects");
       } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
         throw e;
       }
     },
@@ -347,6 +451,18 @@ export default {
           message: "Объект успешно удален",
         });
       } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
         throw e;
       }
     },
