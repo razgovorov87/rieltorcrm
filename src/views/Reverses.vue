@@ -180,6 +180,7 @@
 import ReversesHeader from "@/components/Reverses/ReversesHeader";
 import ReversesTable from "@/components/Reverses/ReversesTable";
 import NoData from "@/components/NoData";
+import errors from "@/errors";
 export default {
   data: () => ({
     loading: true,
