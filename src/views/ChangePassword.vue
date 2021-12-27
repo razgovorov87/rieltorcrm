@@ -248,6 +248,7 @@
 
 <script>
 import { required, minLength, sameAs } from "vuelidate/lib/validators";
+import errors from '../errors';
 export default {
   props: ["formData"],
   data: () => ({

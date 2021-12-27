@@ -351,6 +351,7 @@
 
 <script>
 import ObjectDrawer from "@/components/Objects/ObjectDrawer";
+import errors from "@/errors";
 export default {
   data: () => ({
     search: "",

@@ -285,6 +285,7 @@
 </template>
 
 <script>
+import errors from '../../errors';
 export default {
   props: ["category", "items", "agents", "refusedGroup"],
   data: () => ({

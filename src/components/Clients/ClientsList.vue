@@ -201,6 +201,7 @@
 
 <script>
 import draggable from "vuedraggable";
+import errors from '../../errors';
 import { mapGetters } from "vuex";
 export default {
   props: ["categories", "disableBtn"],

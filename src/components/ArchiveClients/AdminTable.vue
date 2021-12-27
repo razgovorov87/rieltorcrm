@@ -169,6 +169,7 @@
 
 <script>
 import TableGroup from "@/components/ArchiveClients/TableGroup";
+import errors from '../../errors';
 export default {
   props: ["categories", "clients"],
   data: () => ({

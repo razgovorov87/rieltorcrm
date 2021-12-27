@@ -94,6 +94,7 @@
 </template>
 
 <script>
+import errors from '../../errors';
 export default {
   props: ["clients"],
   data: () => ({}),

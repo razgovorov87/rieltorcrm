@@ -247,6 +247,7 @@
 </template>
 
 <script>
+import errors from '../../../errors';
 import axios from "axios";
 export default {
   props: ["client"],

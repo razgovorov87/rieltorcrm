@@ -127,6 +127,7 @@
 </template>
 
 <script>
+import errors from '../../errors';
 import TableTeamGroup from "@/components/AdminTeam/TableTeamGroup";
 export default {
   props: ["clients"],

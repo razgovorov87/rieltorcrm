@@ -331,6 +331,7 @@
 import MaskedInput from "vue-masked-input";
 import { CurrencyInput } from "vue-currency-input";
 import ObjectList from "@/components/Admin/ObjectList";
+import errors from '../../errors';
 export default {
   data: () => ({
     formVerify: false,

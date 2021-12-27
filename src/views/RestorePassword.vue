@@ -145,6 +145,7 @@
 <script>
 import { required, email } from "vuelidate/lib/validators";
 import CodeInput from "vue-verification-code-input";
+import errors from "@/errors";
 export default {
   data: () => ({
     step: 1,

@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import errors from '../errors';
 import AdminTeamHeader from "@/components/AdminTeam/AdminTeamHeader";
 import AdminTeamTable from "@/components/AdminTeam/AdminTeamTable";
 import ItemDrawer from "@/components/Clients/ItemDrawer";

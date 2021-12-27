@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import errors from '../../errors';
 import { mapGetters } from "vuex";
 export default {
   data: () => ({

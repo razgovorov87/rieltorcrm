@@ -145,6 +145,7 @@
 <script>
 import Autocomplete from "@trevoreyre/autocomplete-vue";
 import "@trevoreyre/autocomplete-vue/dist/style.css";
+import errors from '../../errors';
 export default {
   props: ["typeDisplay"],
   data: () => ({

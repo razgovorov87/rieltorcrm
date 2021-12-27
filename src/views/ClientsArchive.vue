@@ -31,6 +31,7 @@
 import NoData from "@/components/NoData";
 import ItemDrawer from "@/components/Clients/ItemDrawer";
 import AdminTable from "@/components/ArchiveClients/AdminTable";
+import errors from '../errors';
 export default {
   data: () => ({
     loading: true,

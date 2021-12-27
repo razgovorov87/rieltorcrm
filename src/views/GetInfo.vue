@@ -237,6 +237,7 @@
 <script>
 import MaskedInput from "vue-masked-input";
 import { required, minLength } from "vuelidate/lib/validators";
+import errors from '../errors';
 export default {
   props: ["formData"],
   data: () => ({

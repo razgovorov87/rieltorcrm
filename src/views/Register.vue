@@ -277,6 +277,7 @@
 
 <script>
 import { required, minLength, sameAs, email } from "vuelidate/lib/validators";
+import errors from "@/errors";
 export default {
   data: () => ({
     login: "",

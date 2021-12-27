@@ -896,6 +896,7 @@
 </template>
 
 <script>
+import errors from '../../../errors';
 import InputGender from "@/components/Clients/Tab/Family/InputGender";
 export default {
   props: ["client"],

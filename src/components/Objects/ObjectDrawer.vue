@@ -214,6 +214,7 @@
 </template>
 
 <script>
+import errors from '../../errors';
 import MaskedInput from "vue-masked-input";
 import { CurrencyInput } from "vue-currency-input";
 export default {

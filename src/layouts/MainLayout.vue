@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import errors from '../errors';
 import Divider from "@/components/Layout/Divider";
 import Header from "@/components/Layout/Header";
 import ExpiredClientItem from "@/components/ExpiredClientItem";
@@ -76,6 +77,8 @@ export default {
   async created() {
     try {
       const user = await store.dispatch("fetchInfo");
+      this.$socket.client.emit("login", { id: user.id });
+      this.successloadingUser = true;
     } catch (e) {
       const msg = e.data["message"];
       if (msg) {
@@ -91,8 +94,6 @@ export default {
       }
       throw e;
     }
-    this.$socket.client.emit("login", { id: user.id });
-    this.successloadingUser = true;
   },
 
   computed: {

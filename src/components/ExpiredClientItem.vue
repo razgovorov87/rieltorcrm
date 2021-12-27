@@ -118,6 +118,7 @@
 </template>
 
 <script>
+import errors from '../errors';
 export default {
   props: ["client"],
   data: () => ({}),

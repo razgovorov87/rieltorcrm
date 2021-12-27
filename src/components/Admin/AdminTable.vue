@@ -181,6 +181,7 @@
 <script>
 import TableGroup from "@/components/Admin/TableGroup";
 import SwitchDialog from "@/components/Admin/SwitchDialog";
+import errors from '../../errors';
 export default {
   props: ["categories", "clients"],
   data: () => ({

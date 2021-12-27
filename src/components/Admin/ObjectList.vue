@@ -99,6 +99,7 @@
 </template>
 
 <script>
+import errors from '../../errors';
 export default {
   data: () => ({
     objects: [],

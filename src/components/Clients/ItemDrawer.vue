@@ -356,6 +356,7 @@ import ReserveDialog from "@/components/Clients/ReserveDialog";
 import ProposedObjectsDialog from "@/components/Clients/ProposedObjectsDialog";
 import ObjectList from "@/components/Admin/ObjectList";
 import HorizontalScroll from "vue-horizontal-scroll";
+import errors from '../../errors';
 export default {
   props: ["client"],
   data: () => ({
