@@ -40,7 +40,7 @@
             d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.373 5.373 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2H2Z"
           />
         </svg>
-        Оставить
+        В работе
       </div>
       <div
         class="
@@ -118,14 +118,17 @@
 </template>
 
 <script>
-import errors from '../errors';
+import errors from "../errors";
 export default {
   props: ["client"],
-  data: () => ({}),
   methods: {
     onWork() {
       try {
-        this.$store.dispatch("expiredClientOnWork", this.client["alertId"]);
+        const data = {
+          clientId: this.client["msg"]["clientId"],
+          alertId: this.client["alertId"],
+        };
+        this.$store.dispatch("expiredClientOnWork", data);
         this.$socket.client.emit("alert", {
           alertId: this.client["alertId"],
           readed: true,

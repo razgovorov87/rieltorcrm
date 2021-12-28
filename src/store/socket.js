@@ -26,7 +26,8 @@ export default {
         }
     },
     actions: {
-        expiredClientOnWork({commit, dispatch}, alertId) {
+        expiredClientOnWork({ commit, dispatch }, {clientId, alertId}) {
+            dispatch('saveClientInfo', {clientId: clientId, status: 'В работе'});
             commit('removeExpiredClient', alertId);
             
         },

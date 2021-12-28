@@ -1,6 +1,6 @@
 <template>
   <div class="p-5 flex h-screen">
-    <div class="h-full flex flex-col overflow-hidden rounded-xl w-2/3">
+    <div class="h-full flex flex-col overflow-hidden rounded-xl w-full">
       <div class="bg-blue-700 py-4 px-6 flex">
         <v-menu
           v-if="agents != [] && selectedAgent != null"
@@ -46,6 +46,52 @@
               <v-list-item-title>{{
                 agent["name"] + " " + agent["surname"]
               }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+
+        <v-menu
+          v-if="agents != [] && selectedAgent != null"
+          class="flex-1"
+          bottom
+          offset-y
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <div
+              class="
+                flex
+                items-center
+                px-2
+                mr-2
+                bg-white bg-opacity-25
+                text-white
+                font-bold
+                tracking-tighter
+                capitalize
+                rounded-xl
+                text-xs
+                transition
+                hover:bg-opacity-40
+              "
+              color="tranparent"
+              depressed
+              small
+              v-bind="attrs"
+              v-on="on"
+            >
+              <span>
+                {{ typeToLabel[type] }}
+              </span>
+              <v-icon right style="color: white"> mdi-chevron-down </v-icon>
+            </div>
+          </template>
+          <v-list dense>
+            <v-list-item
+              v-for="(item, index) of typeToLabel"
+              :key="item"
+              @click="type = index"
+            >
+              <v-list-item-title>{{ typeToLabel[index] }}</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -161,7 +207,7 @@
 </template>
 
 <script>
-import errors from '../errors';
+import errors from "../errors";
 export default {
   data: () => ({
     calendar: "",
@@ -172,6 +218,7 @@ export default {
     type: "month",
     typeToLabel: {
       month: "Месяц",
+      week: "Неделя",
     },
     weekday: [1, 2, 3, 4, 5, 6, 0],
   }),
@@ -219,7 +266,9 @@ export default {
             );
 
             const percent =
-              missedCalls != 0 ? (notMissedCalls / missedCalls) * 100 : 100;
+              missedCalls != 0
+                ? (missedCalls / (notMissedCalls + missedCalls)) * 100
+                : 100;
 
             events.push({
               name: `Принято: ${notMissedCalls}`,
@@ -238,7 +287,7 @@ export default {
               ),
             });
             events.push({
-              name: `% принятых: ${percent}%`,
+              name: `% пропущеных: ${percent}%`,
               color: "bg-gray-300",
               timed: false,
               start: Date.parse(

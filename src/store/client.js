@@ -135,7 +135,7 @@ export default {
       }
     },
 
-    async saveClientInfo({}, { fio, budget, status, clientId }) {
+    async saveClientInfo({commit, dispatch}, { fio, budget, status, clientId }) {
       try {
         const data = {
           fio,
@@ -148,6 +148,7 @@ export default {
             "Content-Type": "application/json",
           },
         });
+        dispatch('fetchUserClients');
         return response.data;
       } catch (e) {
         throw e;
