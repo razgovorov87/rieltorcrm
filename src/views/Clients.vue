@@ -19,6 +19,7 @@
       <ItemDrawer
         v-if="itemsDrawer"
         :client="client"
+        :isAdmin="false"
         @closeDrawer="itemsDrawer = false"
         @reloadList="
           () => {
@@ -43,7 +44,7 @@ import ItemDrawer from "@/components/Clients/ItemDrawer";
 import NewClients from "@/components/Clients/NewClients";
 import NoData from "@/components/NoData";
 import { mapState } from "vuex";
-import errors from '../errors';
+import errors from "../errors";
 export default {
   data: () => ({
     loading: true,

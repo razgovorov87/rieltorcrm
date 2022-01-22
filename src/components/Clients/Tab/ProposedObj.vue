@@ -30,7 +30,7 @@
       <span>Добавить новую ссылку</span>
     </div>
     <div
-      v-for="(obj, idx) in objects.reverse()"
+      v-for="(obj, idx) in objects"
       :key="obj.status + idx"
       class="flex mt-3 items-center"
     >
@@ -264,6 +264,7 @@ export default {
         this.objects.push(el);
       });
     }
+    this.objects = this.objects.reverse();
     this.objStartLength = this.objects.length;
   },
 
