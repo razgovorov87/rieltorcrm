@@ -64,13 +64,12 @@ export default {
 
     async saveClientComposition(
       { dispatch },
-      [clientId, frontData, compositionType]
+      [clientId, composition]
     ) {
       try {
         const data = {
           clientId,
-          data: frontData,
-          compositionType,
+          data: composition,
         };
         const response = await axios.post(`/saveClientComposition`, data, {
           headers: {
@@ -82,11 +81,11 @@ export default {
       }
     },
 
-    async saveCriterion({ dispatch }, { frontData, clientId }) {
+    async saveCriterion({ dispatch }, { criterion, clientId }) {
       try {
         const data = {
           clientId,
-          data: frontData,
+          data: criterion,
         };
         const response = await axios.post(`/saveCriterion`, data, {
           headers: {

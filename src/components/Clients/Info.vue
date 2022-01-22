@@ -235,229 +235,26 @@
         </div>
       </div> -->
 
-      <div v-if="compositionType && composition" class="flex flex-col">
-        <div class="flex items-center">
+      <div
+        v-if="composition && typeof composition == 'string'"
+        class="flex flex-col"
+      >
+        <div class="flex flex-col">
           <span class="font-medium text-gray-600">Состав проживающих:</span>
-          <span
+          <div
             class="
               text-sm
-              rounded-full
+              rounded-md
               font-medium
               py-1
               px-3
               bg-white
               shadow
-              text-center
-              ml-2
-            "
-            >{{ compositionType }}</span
-          >
-        </div>
-        <div class="flex flex-col flex-grow mt-5">
-          <template v-if="composition.men">
-            <div
-              v-for="(man, idx) in composition.men"
-              :key="man + idx"
-              class="
-                flex flex-col
-                bg-white
-                w-full
-                relative
-                pt-4
-                px-2
-                pb-2
-                rounded
-                shadow
-                text-sm
-                mb-6
-              "
-            >
-              <div
-                class="
-                  absolute
-                  top-0
-                  left-0
-                  transform
-                  border-2
-                  -translate-x-4 -translate-y-1/2
-                  flex
-                  items-center
-                  justify-center
-                  px-2
-                  py-1
-                  bg-white
-                  rounded-full
-                "
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-gray-700 mr-1"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-                <span class="font-medium text-sm">Человек</span>
-              </div>
-
-              <p v-if="man.fio" class="font-medium">
-                ФИО: <span class="font-normal">{{ man.fio }}</span>
-              </p>
-              <p v-if="man.gender" class="font-medium">
-                Пол: <span class="font-normal">{{ man.gender }}</span>
-              </p>
-              <p v-if="man.age" class="font-medium">
-                Возраст: <span class="font-normal">{{ man.age }}</span>
-              </p>
-              <p v-if="man.work" class="font-medium">
-                Сфера деятельности:
-                <span class="font-normal">{{ man.work }}</span>
-              </p>
-              <p v-if="man.national" class="font-medium">
-                Гражданство: <span class="font-normal">{{ man.national }}</span>
-              </p>
-              <p v-if="man.register" class="font-medium">
-                Прописка: <span class="font-normal">{{ man.register }}</span>
-              </p>
-              <p v-if="man.salary" class="font-medium">
-                Зарплата: <span class="font-normal">{{ man.salary }}</span>
-              </p>
-              <p v-if="man.info" class="font-medium">
-                Доп.информация: <span class="font-normal">{{ man.info }}</span>
-              </p>
-            </div>
-          </template>
-
-          <div v-if="composition.men" class="mb-5 h-px bg-gray-400"></div>
-
-          <div
-            v-for="(man, idx) in composition.kids"
-            :key="man + idx"
-            class="
-              flex flex-col
-              bg-white
-              w-full
-              relative
-              pt-4
-              px-2
-              pb-2
-              rounded
-              shadow
-              text-sm
-              mb-6
+              break-words
             "
           >
-            <div
-              class="
-                absolute
-                top-0
-                left-0
-                transform
-                border-2
-                -translate-x-4 -translate-y-1/2
-                flex
-                items-center
-                justify-center
-                px-2
-                py-1
-                bg-white
-                rounded-full
-              "
-            >
-              <svg
-                class="mr-2 w-5 h-5 text-gray-700"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 32 32"
-                stroke="currentColor"
-                fill="currentColor"
-              >
-                <path
-                  xmlns="http://www.w3.org/2000/svg"
-                  d="M27.4,13.3c-1-3.2-3.4-5.8-6.4-7.2c-0.4-1.4-1.2-2.6-2.4-3.6c-0.4-0.3-1.1-0.3-1.4,0.2c-0.3,0.4-0.3,1.1,0.2,1.4  c2,1.6,2.6,4.4,1.4,6.7c-1,2-3.5,2.7-5.5,1.7c-1.5-0.8-2.1-2.6-1.3-4.1c0.3-0.5,0.7-0.9,1.3-1.1c0.6-0.2,1.2-0.1,1.7,0.2  c0.4,0.2,0.7,0.5,0.8,0.9c0.1,0.4,0.1,0.8-0.1,1.2c-0.3,0.5-0.1,1.1,0.4,1.4c0.5,0.3,1.1,0.1,1.4-0.4c0.4-0.8,0.5-1.8,0.3-2.7  s-0.9-1.7-1.8-2.1c-1-0.5-2.2-0.6-3.2-0.3c-0.4,0.1-0.8,0.3-1.1,0.6c-3.3,1.3-5.8,4-6.9,7.4C3.1,13.8,2,15.3,2,17  c0,1.7,1.1,3.2,2.6,3.8C6.2,25.6,10.8,29,16,29s9.8-3.4,11.4-8.3c1.5-0.6,2.6-2.1,2.6-3.8C30,15.3,28.9,13.8,27.4,13.3z M12,17  c0-0.6,0.4-1,1-1s1,0.4,1,1v2c0,0.6-0.4,1-1,1s-1-0.4-1-1V17z M14,24c-1.7,0-3.2-1.1-3.8-2.7c-0.2-0.5,0.1-1.1,0.6-1.3  c0.5-0.2,1.1,0.1,1.3,0.6c0.3,0.8,1,1.3,1.9,1.3c0.6,0,1,0.4,1,1S14.6,24,14,24z M20,19c0,0.6-0.4,1-1,1s-1-0.4-1-1v-2  c0-0.6,0.4-1,1-1s1,0.4,1,1V19z"
-                />
-              </svg>
-              <span class="font-medium text-sm">Ребенок</span>
-            </div>
-
-            <p v-if="man.name" class="font-medium">
-              Имя: <span class="font-normal">{{ man.name }}</span>
-            </p>
-            <p v-if="man.age" class="font-medium">
-              Возраст: <span class="font-normal">{{ man.age }}</span>
-            </p>
-            <p v-if="man.info" class="font-medium">
-              Доп.информация: <span class="font-normal">{{ man.info }}</span>
-            </p>
+            {{ composition }}
           </div>
-
-          <div v-if="composition.kids" class="mb-5 h-px bg-gray-400"></div>
-
-          <div
-            v-for="(man, idx) in composition.pets"
-            :key="man + idx"
-            class="
-              flex flex-col
-              bg-white
-              w-full
-              relative
-              pt-4
-              px-2
-              pb-2
-              rounded
-              shadow
-              text-sm
-              mb-6
-            "
-          >
-            <div
-              class="
-                absolute
-                top-0
-                left-0
-                transform
-                border-2
-                -translate-x-4 -translate-y-1/2
-                flex
-                items-center
-                justify-center
-                px-2
-                py-1
-                bg-white
-                rounded-full
-              "
-            >
-              <svg
-                class="mr-2 w-5 h-5 text-gray-700"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 25 25"
-                stroke="currentColor"
-                fill="currentColor"
-              >
-                <path
-                  d="M4.5,12 C3.11928813,12 2,10.8807119 2,9.5 C2,8.11928813 3.11928813,7 4.5,7 C5.88071187,7 7,8.11928813 7,9.5 C7,10.8807119 5.88071187,12 4.5,12 Z M9,8 C7.61928813,8 6.5,6.88071187 6.5,5.5 C6.5,4.11928813 7.61928813,3 9,3 C10.3807119,3 11.5,4.11928813 11.5,5.5 C11.5,6.88071187 10.3807119,8 9,8 Z M15,8 C13.6192881,8 12.5,6.88071187 12.5,5.5 C12.5,4.11928813 13.6192881,3 15,3 C16.3807119,3 17.5,4.11928813 17.5,5.5 C17.5,6.88071187 16.3807119,8 15,8 Z M19.5,12 C18.1192881,12 17,10.8807119 17,9.5 C17,8.11928813 18.1192881,7 19.5,7 C20.8807119,7 22,8.11928813 22,9.5 C22,10.8807119 20.8807119,12 19.5,12 Z M17.34,14.86 C18.65,16.17 20.26,17.62 19.95,19.66 C19.66,20.67 18.93,21.69 17.62,21.98 C16.89,22.12 14.56,21.54 12.08,21.54 L11.9,21.54 C9.42,21.54 7.09,22.13 6.36,21.98 C5.05,21.69 4.32,20.68 4.03,19.66 C3.73,17.63 5.34,16.18 6.65,14.87 C7.53,13.85 8.26,12.98 9.13,11.96 C9.6,11.42 10.18,10.88 10.88,10.64 C10.99,10.6 11.1,10.57 11.21,10.55 C11.47,10.5 11.74,10.5 12,10.5 C12.26,10.5 12.53,10.5 12.78,10.54 C12.89,10.56 13,10.59 13.11,10.63 C13.81,10.87 14.4,11.41 14.86,11.95 C15.74,12.97 16.47,13.84 17.34,14.86 Z"
-                  id="🔹-Primary-Color"
-                  fill="#1D1D1D"
-                />
-              </svg>
-              <span class="font-medium text-sm">Питомец</span>
-            </div>
-
-            <p v-if="man.type" class="font-medium">
-              Тип: <span class="font-normal">{{ man.type }}</span>
-            </p>
-            <p v-if="man.age" class="font-medium">
-              Возраст: <span class="font-normal">{{ man.age }}</span>
-            </p>
-            <p v-if="man.info" class="font-medium">
-              Доп.информация: <span class="font-normal">{{ man.info }}</span>
-            </p>
-          </div>
-
-          <div v-if="composition.pets" class="mb-5 h-px bg-gray-400"></div>
         </div>
       </div>
 
@@ -555,7 +352,7 @@
 </template>
 
 <script>
-import errors from '../../errors';
+import errors from "../../errors";
 import { CurrencyInput } from "vue-currency-input";
 export default {
   props: ["info"],
@@ -600,9 +397,6 @@ export default {
       // this.company = this.info.company ? this.info.company : "";
       this.budget = this.info.budget ? this.info.budget : 0;
       // this.adress = this.info.adress ? this.info.adress : "";
-      this.compositionType = this.info.compositionType
-        ? this.info.compositionType
-        : 0;
       this.composition = this.info.composition ? this.info.composition : 0;
     }
   },

@@ -30,7 +30,7 @@
       <span>Добавить новую ссылку</span>
     </div>
     <div
-      v-for="(obj, idx) in objects"
+      v-for="(obj, idx) in objects.reverse()"
       :key="obj.status + idx"
       class="flex mt-3 items-center"
     >
@@ -247,7 +247,7 @@
 </template>
 
 <script>
-import errors from '../../../errors';
+import errors from "../../../errors";
 import axios from "axios";
 export default {
   props: ["client"],
@@ -369,6 +369,7 @@ export default {
           type: "error",
           message: "Недействительная ссылка",
         });
+        this.$parent.loading = false;
         return;
       }
 

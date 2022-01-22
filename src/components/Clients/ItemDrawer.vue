@@ -85,8 +85,10 @@
                   rounded
                   flex flex-col
                 "
+                :class="[this.isAdmin == true ? 'w-52' : '']"
               >
                 <span
+                  v-if="isAdmin != true"
                   class="
                     text-gray-400
                     font-semibold
@@ -98,6 +100,51 @@
                   "
                   @click="refuseDialog = true"
                   >Отказаться</span
+                >
+
+                <span
+                  v-if="isAdmin == true"
+                  class="
+                    text-gray-400
+                    font-semibold
+                    px-4
+                    py-1
+                    text-sm
+                    hover:bg-gray-100
+                    rounded
+                  "
+                  @click="openSwitchDialog()"
+                  >Передать другому агенту</span
+                >
+
+                <span
+                  v-if="isAdmin == true"
+                  class="
+                    text-gray-400
+                    font-semibold
+                    px-4
+                    py-1
+                    text-sm
+                    hover:bg-gray-100
+                    rounded
+                  "
+                  @click="returnClientToStart(client)"
+                  >Вернуть в базу без агента</span
+                >
+
+                <span
+                  v-if="isAdmin == true"
+                  class="
+                    text-red-500
+                    font-semibold
+                    px-4
+                    py-1
+                    text-sm
+                    hover:bg-gray-100
+                    rounded
+                  "
+                  @click="removeClient(client)"
+                  >Удалить из базы</span
                 >
               </div>
             </button>
@@ -325,6 +372,11 @@
       :client="client"
       @close="refuseDialog = false"
     />
+    <SwitchDialog
+      v-if="switchDialog"
+      :client="client"
+      @close="switchDialog = false"
+    />
     <ReserveDialog
       v-if="reserveDialog"
       :obj="reserveObj"
@@ -356,12 +408,14 @@ import ReserveDialog from "@/components/Clients/ReserveDialog";
 import ProposedObjectsDialog from "@/components/Clients/ProposedObjectsDialog";
 import ObjectList from "@/components/Admin/ObjectList";
 import HorizontalScroll from "vue-horizontal-scroll";
-import errors from '../../errors';
+import SwitchDialog from "@/components/Admin/SwitchDialog";
+import errors from "../../errors";
 export default {
-  props: ["client"],
+  props: ["client", "isAdmin"],
   data: () => ({
     infoMenu: false,
     categoriesMenu: false,
+    switchDialog: false,
     startId: 0,
     categoriesId: 0,
     categories: [
@@ -476,6 +530,14 @@ export default {
       this.$refs.criterionTab.saveCriterion();
       try {
         const clientInfo = await this.$store.dispatch("saveClientInfo", info);
+
+        this.$refs.infoBlock.updateInfo(clientInfo);
+        this.openSave(false);
+        this.$toasts.push({
+          type: "success",
+          message: "Информация о клиенте успешно сохранена!",
+        });
+        this.$emit("reloadList");
       } catch (e) {
         const msg = e.data["message"];
         if (msg) {
@@ -491,13 +553,6 @@ export default {
         }
         throw e;
       }
-      this.$refs.infoBlock.updateInfo(clientInfo);
-      this.openSave(false);
-      this.$toasts.push({
-        type: "success",
-        message: "Информация о клиенте успешно сохранена!",
-      });
-      this.$emit("reloadList");
     },
 
     async logCategory() {
@@ -604,6 +659,61 @@ export default {
         throw e;
       }
     },
+
+    async returnClientToStart(client) {
+      try {
+        await this.$store.dispatch("returnClientToStart", client);
+        await this.$parent.fetchClients();
+        this.$toasts.push({
+          type: "success",
+          message: 'Клиент успешно перенесен в группу "Не обработано"',
+        });
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
+      }
+    },
+
+    async removeClient(client) {
+      try {
+        await this.$store.dispatch("deleteClient", client);
+        await this.$parent.fetchClients();
+        this.$toasts.push({
+          type: "success",
+          message: "Клиент успешно удален",
+        });
+        this.$parent.closeDrawer();
+      } catch (e) {
+        const msg = e.data["message"];
+        if (msg) {
+          this.$toasts.push({
+            type: "error",
+            message: errors[msg],
+          });
+        } else {
+          this.$toasts.push({
+            type: "error",
+            message: msg,
+          });
+        }
+        throw e;
+      }
+    },
+
+    openSwitchDialog() {
+      this.switchDialog = true;
+    },
   },
 
   computed: {
@@ -632,6 +742,7 @@ export default {
     RefuseDialog,
     HorizontalScroll,
     ProposedObjectsDialog,
+    SwitchDialog,
   },
 };
 </script>

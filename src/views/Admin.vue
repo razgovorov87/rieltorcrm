@@ -49,6 +49,7 @@
       <ItemDrawer
         v-if="itemsDrawer"
         :client="client"
+        :isAdmin="true"
         @reloadList="
           () => {
             fetchClients();
@@ -96,6 +97,10 @@ export default {
     openClient(client) {
       this.client = client;
       this.itemsDrawer = true;
+    },
+
+    closeDrawer() {
+      this.itemsDrawer = false;
     },
 
     changeTypeDisplay(type) {

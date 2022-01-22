@@ -210,7 +210,7 @@
 </template>
 
 <script>
-import errors from '../../errors';
+import errors from "../../errors";
 export default {
   props: ["client"],
   data: () => ({
@@ -261,6 +261,10 @@ export default {
       try {
         await this.$store.dispatch("switchAgent", data);
         await this.$parent.$parent.fetchClients();
+        this.$toasts.push({
+          type: "success",
+          message: "Клиент успешно передан",
+        });
         this.$emit("close");
       } catch (e) {
         const msg = e.data["message"];
