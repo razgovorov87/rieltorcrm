@@ -309,9 +309,10 @@
     </nav>
 
     <div class="flex flex-shrink-0 flex-col bg-darkDivider">
-      <router-link
+      <a
         id="link_with_popover"
-        to="#"
+        href="https://t.me/royalgoose"
+        target="__blank"
         class="
           py-2
           flex flex-col
@@ -360,7 +361,7 @@
           "
           >Тех.поддержка</span
         >
-      </router-link>
+      </a>
 
       <button
         id="link_with_popover"
@@ -418,7 +419,7 @@
 </template>
 
 <script>
-import errors from '../../errors';
+import errors from "../../errors";
 export default {
   data: () => ({
     userInfo: false,

@@ -27,14 +27,14 @@
               w-52
               justify-between
             "
-            @click="typeList = !typeList"
+            @click="roomsList = !roomsList"
           >
-            <span>{{ type }}</span>
+            <span>{{ rooms }}</span>
             <svg
               class="w-3 text-gray-500 ml-2 transition"
               :class="[
                 {
-                  'transform rotate-180': typeList,
+                  'transform rotate-180': roomsList,
                 },
               ]"
               xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +50,7 @@
               />
             </svg>
             <div
-              v-if="typeList"
+              v-if="roomsList"
               class="absolute top-full inset-x-0 bg-white border shadow"
             >
               <div class="flex flex-col w-full">
@@ -64,9 +64,9 @@
                     justify-between
                     items-center
                   "
-                  @click="type = $event.target.innerText"
+                  @click="rooms = 'Кол-во комнат'"
                 >
-                  Все типы
+                  Любое
                 </div>
                 <div
                   class="
@@ -78,9 +78,9 @@
                     justify-between
                     items-center
                   "
-                  @click="type = $event.target.innerText"
+                  @click="rooms = $event.target.innerText"
                 >
-                  Квартира
+                  1
                 </div>
                 <div
                   class="
@@ -92,9 +92,37 @@
                     justify-between
                     items-center
                   "
-                  @click="type = $event.target.innerText"
+                  @click="rooms = $event.target.innerText"
                 >
-                  Дом
+                  2
+                </div>
+                <div
+                  class="
+                    border-b
+                    px-2
+                    py-2
+                    hover:bg-gray-100
+                    flex
+                    justify-between
+                    items-center
+                  "
+                  @click="rooms = $event.target.innerText"
+                >
+                  3
+                </div>
+                <div
+                  class="
+                    border-b
+                    px-2
+                    py-2
+                    hover:bg-gray-100
+                    flex
+                    justify-between
+                    items-center
+                  "
+                  @click="rooms = $event.target.innerText"
+                >
+                  4
                 </div>
               </div>
             </div>
@@ -355,8 +383,8 @@ import errors from "@/errors";
 export default {
   data: () => ({
     search: "",
-    type: "Все типы",
-    typeList: false,
+    rooms: "Кол-во комнат",
+    roomsList: false,
     priceFrom: null,
     priceTo: null,
     objects: [],
@@ -413,7 +441,7 @@ export default {
 
     resetFilter() {
       this.search = "";
-      this.type = "Все типы";
+      this.rooms = "Кол-во комнат";
       this.priceFrom = "";
       this.priceTo = "";
     },
@@ -423,8 +451,8 @@ export default {
       resultArr = this.objects.filter((obj) =>
         obj.adress.toLowerCase().includes(this.search.toLowerCase())
       );
-      if (this.type !== "Все типы") {
-        resultArr = this.objects.filter((obj) => obj.type === this.type);
+      if (this.rooms !== "Кол-во комнат") {
+        resultArr = this.objects.filter((obj) => obj.room === this.rooms);
       }
 
       if (this.priceFrom && !this.priceTo)

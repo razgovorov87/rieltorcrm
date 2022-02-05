@@ -40,28 +40,28 @@
       "
       style="font-size: 10px"
     >
-      CRM version:
+      Front version:
       <v-skeleton-loader
         v-if="frontVersion == ''"
         width="50"
         type="text"
         style="margin: 0; padding: 0"
       ></v-skeleton-loader>
-      <span v-else class="mx-1">v{{ frontVersion }}</span>
-      | Core version:
+      <span v-else class="mx-1">{{ frontVersion }}</span>
+      | Back version:
       <v-skeleton-loader
         v-if="backVersion == ''"
         width="50"
         type="text"
         style="margin: 0; padding: 0"
       ></v-skeleton-loader>
-      <span v-else class="mx-1">v{{ backVersion }}</span>
+      <span v-else class="mx-1">{{ backVersion }}</span>
     </div>
   </div>
 </template>
 
 <script>
-import errors from '../errors';
+import errors from "../errors";
 import Divider from "@/components/Layout/Divider";
 import Header from "@/components/Layout/Header";
 import ExpiredClientItem from "@/components/ExpiredClientItem";
