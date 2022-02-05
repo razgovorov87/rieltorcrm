@@ -62,10 +62,7 @@ export default {
       }
     },
 
-    async saveClientComposition(
-      { dispatch },
-      [clientId, composition]
-    ) {
+    async saveClientComposition({ dispatch }, [clientId, composition]) {
       try {
         const data = {
           clientId,
@@ -134,7 +131,10 @@ export default {
       }
     },
 
-    async saveClientInfo({commit, dispatch}, { fio, budget, status, clientId }) {
+    async saveClientInfo(
+      { commit, dispatch },
+      { fio, budget, status, clientId }
+    ) {
       try {
         const data = {
           fio,
@@ -147,7 +147,7 @@ export default {
             "Content-Type": "application/json",
           },
         });
-        dispatch('fetchUserClients');
+        dispatch("fetchUserClients");
         return response.data;
       } catch (e) {
         throw e;
@@ -156,11 +156,13 @@ export default {
 
     async saveClientLinks({ dispatch }, { clientId, arr }) {
       try {
+        const uid = await dispatch("getUid");
         const data = {
+          agentId: uid,
           clientId,
           arr,
         };
-        const response = await axios.post(`/saveExceptions`, data, {
+        const response = await axios.post(`/saveClientLinks`, data, {
           headers: {
             "Content-Type": "application/json",
           },
