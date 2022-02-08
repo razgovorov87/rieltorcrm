@@ -173,6 +173,48 @@
       </router-link>
 
       <router-link
+        to="/agentsStats"
+        class="
+          py-2
+          flex flex-col
+          items-center
+          text-gray-400
+          outline-none
+          hover:text-white
+          transition
+          w-full
+          group
+        "
+        exact
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-8 text-gray-400 group-hover:text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+          />
+        </svg>
+        <span
+          class="
+            text-xs text-gray-400
+            font-semibold
+            mt-1
+            truncate
+            group-hover:text-white
+          "
+          style="max-width: 60px"
+          >Статистика</span
+        >
+      </router-link>
+
+      <router-link
         v-if="checkAdmin"
         to="/admin/clients"
         class="
@@ -309,7 +351,7 @@
     </nav>
 
     <div class="flex flex-shrink-0 flex-col bg-darkDivider">
-      <a
+      <!-- <a
         id="link_with_popover"
         href="https://t.me/royalgoose"
         target="__blank"
@@ -361,7 +403,7 @@
           "
           >Тех.поддержка</span
         >
-      </a>
+      </a> -->
 
       <button
         id="link_with_popover"

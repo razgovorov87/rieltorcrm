@@ -99,6 +99,13 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Calls.vue"),
   },
   {
+    path: "/agentsStats",
+    name: "Статистика агентов",
+    meta: { layout: "main", auth: true },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/AgentsStats.vue"),
+  },
+  {
     path: "*",
     redirect: "/login",
   },

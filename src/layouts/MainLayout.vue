@@ -108,7 +108,8 @@ export default {
         this.$route.path === "/admin/clients" ||
         this.$route.path === "/admin/team" ||
         this.$route.path === "/reverses" ||
-        this.$route.path === "/calls"
+        this.$route.path === "/calls" ||
+        this.$route.path === "/agentsStats"
         ? false
         : true;
     },

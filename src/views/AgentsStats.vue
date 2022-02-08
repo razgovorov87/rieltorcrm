@@ -49,21 +49,21 @@
               space-x-1
             "
           >
-            <span>Принято:</span>
+            <span>Предложено объектов:</span>
             <span
               v-if="selectedAgent"
               class="px-1 py-0.5 text-xs bg-green-100 rounded"
-              >{{ getNotMissedCallsFromStats() }}</span
+              >{{ getProposedFromStats() }}</span
             >
           </div>
           <div
             class="text-sm text-red-500 font-bold flex items-center space-x-1"
           >
-            <span>Пропущено:</span>
+            <span>Отказов:</span>
             <span
               v-if="selectedAgent"
               class="px-1 py-0.5 text-xs bg-red-100 rounded"
-              >{{ getMissedCallsFromStats() }}</span
+              >{{ getRefusesFromStats() }}</span
             >
           </div>
         </div>
@@ -226,7 +226,7 @@
           <template v-slot:day="{ date }">
             <div class="flex flex-grow items-stretch justify-center space-x-2">
               <div
-                v-if="getDay(date)['notMissedCalls'] != null"
+                v-if="getDay(date)['proposed'] != null"
                 class="flex items-center items-center"
               >
                 <svg
@@ -240,16 +240,16 @@
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="2"
-                    d="M21 3l-6 6m0 0V4m0 5h5M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"
+                    d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                   />
                 </svg>
                 <span class="text-md font-bold text-green-500">{{
-                  getDay(date)["notMissedCalls"]
+                  getDay(date)["proposed"]
                 }}</span>
               </div>
 
               <div
-                v-if="getDay(date)['missedCalls'] != null"
+                v-if="getDay(date)['refuses'] != null"
                 class="flex items-center"
               >
                 <svg
@@ -263,11 +263,11 @@
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="2"
-                    d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"
+                    d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6"
                   />
                 </svg>
                 <span class="text-md font-bold text-red-500">{{
-                  getDay(date)["missedCalls"]
+                  getDay(date)["refuses"]
                 }}</span>
               </div>
             </div>
@@ -297,7 +297,7 @@ export default {
   }),
 
   async mounted() {
-    await this.getEvents();
+    await this.getInfo();
     this.loading = false;
   },
 
@@ -306,42 +306,39 @@ export default {
       this.now = obj["start"]["date"];
     },
 
-    getNotMissedCallsFromStats() {
+    getProposedFromStats() {
       const date = this.now.substr(0, 7);
-      const calls = this.selectedAgent["stats"][date];
-      if (!calls) return "0";
+      const stats = this.selectedAgent["stats"][date];
+      if (!stats) return "0";
 
-      const notMissedCalls = calls["notMissedCalls"];
-      const missedCalls = calls["missedCalls"];
-      const percent = (notMissedCalls / (notMissedCalls + missedCalls)) * 100;
-      return `${percent}% (${notMissedCalls})`;
+      const proposed = stats["proposed"];
+      return proposed;
     },
 
-    getMissedCallsFromStats() {
+    getRefusesFromStats() {
       const date = this.now.substr(0, 7);
-      const calls = this.selectedAgent["stats"][date];
-      if (!calls) return "0";
+      const stats = this.selectedAgent["stats"][date];
+      if (!stats) return "0";
 
-      const notMissedCalls = calls["notMissedCalls"];
-      const missedCalls = calls["missedCalls"];
-      const percent = (missedCalls / (notMissedCalls + missedCalls)) * 100;
-      return `${percent}% (${missedCalls})`;
+      const refuses = stats["refuses"];
+      return refuses;
     },
 
     getDay(date) {
       const days = this.getUserEvents(this.selectedAgent);
       const day = days[date];
       return {
-        notMissedCalls: day != null ? day["notMissedCalls"] : null,
-        missedCalls: day != null ? day["missedCalls"] : null,
+        proposed: day != null ? day["proposed"] : null,
+        refuses: day != null ? day["refuses"] : null,
       };
     },
 
-    async getEvents() {
+    async getInfo() {
       try {
-        const result = await this.$store.dispatch("getCalls");
-        this.filterCalls(result);
+        const result = await this.$store.dispatch("fetchAgents");
+        this.filterAgents(result);
       } catch (e) {
+        console.log(e);
         const msg = e.data["message"];
         if (msg) {
           this.$toasts.push({
@@ -358,48 +355,58 @@ export default {
       }
     },
 
-    filterCalls(result) {
+    filterAgents(result) {
       if (Object.keys(result).length) {
-        Object.keys(result).forEach((authorId) => {
-          const events = this.calculateEvents(result, authorId);
-          const stats = this.calculateStats(result, authorId);
-
-          this.agents.push({
-            authorId,
-            name: result[authorId]["authorName"],
-            surname: result[authorId]["authorSurname"],
-            calls: events,
-            stats: stats,
-          });
+        Object.keys(result).forEach((key) => {
+          if (result[key]["stats"]) {
+            const events = this.calculateEvents(result, key);
+            const stats = this.calculateStats(result, key);
+            this.agents.push({
+              id: result[key]["id"],
+              name: result[key]["name"],
+              surname: result[key]["surname"],
+              events: events,
+              stats: stats,
+            });
+          }
         });
 
+        console.log(this.agents);
         this.selectedAgent = this.agents[0];
       }
     },
 
-    calculateStats(result, authorId) {
+    calculateStats(result, agentId) {
       const stats = {};
 
-      Object.keys(result[authorId]["overallCalls"]).forEach((key, index) => {
-        const month = Object.keys(result[authorId]["overallCalls"])[
-          index
-        ].substr(0, 7);
+      const proposedPath = result[agentId]["stats"]["proposed"];
+      const refusesPath = result[agentId]["stats"]["refuses"];
 
-        const missedCalls = this.calcMissedCalls(
-          result[authorId]["overallCalls"][key]
-        );
-
-        const notMissedCalls = this.calcNotMissedCalls(
-          result[authorId]["overallCalls"][key]
-        );
+      Object.keys(proposedPath).forEach((key) => {
+        const month = key.substr(0, 7);
 
         if (stats[month]) {
-          stats[month]["missedCalls"] += missedCalls;
-          stats[month]["notMissedCalls"] += notMissedCalls;
+          stats[month]["proposed"] += proposedPath[key];
         } else {
           stats[month] = {
-            missedCalls,
-            notMissedCalls,
+            proposed: proposedPath[key],
+            refuses: 0,
+          };
+        }
+      });
+
+      Object.keys(refusesPath).forEach((key) => {
+        const month = key.substr(0, 7);
+
+        if (stats[month]) {
+          stats[month] = {
+            ...stats[month],
+            refuses: (stats[month]["refuses"] += refusesPath[key]),
+          };
+        } else {
+          stats[month] = {
+            proposed: 0,
+            refuses: refusesPath[key],
           };
         }
       });
@@ -407,34 +414,44 @@ export default {
       return stats;
     },
 
-    calculateEvents(result, authorId) {
+    calculateEvents(result, agentId) {
       const events = {};
 
-      Object.keys(result[authorId]["overallCalls"]).forEach((key) => {
-        const missedCalls = this.calcMissedCalls(
-          result[authorId]["overallCalls"][key]
-        );
+      const proposedPath = result[agentId]["stats"]["proposed"];
+      const refusesPath = result[agentId]["stats"]["refuses"];
 
-        const notMissedCalls = this.calcNotMissedCalls(
-          result[authorId]["overallCalls"][key]
-        );
+      if (proposedPath) {
+        Object.keys(proposedPath).forEach((key) => {
+          events[key] = {
+            proposed: proposedPath[key],
+            refuses: 0,
+          };
+        });
+      }
 
-        const date = result[authorId]["overallCalls"][key][0][
-          "createdAt"
-        ].substr(0, 10);
-
-        events[date] = { missedCalls, notMissedCalls };
-      });
+      if (refusesPath) {
+        Object.keys(refusesPath).forEach((key) => {
+          if (events[key]) {
+            events[key] = {
+              ...events[key],
+              refuses: (events[key]["refuses"] += refusesPath[key]),
+            };
+          } else {
+            events[key] = {
+              proposed: 0,
+              refuses: refusesPath[key],
+            };
+          }
+        });
+      }
 
       return events;
     },
 
     getUserEvents(selectedAgent) {
-      const agent = this.agents.find(
-        (e) => e.authorId == selectedAgent.authorId
-      );
+      const agent = this.agents.find((e) => e["id"] == selectedAgent["id"]);
 
-      return agent.calls;
+      return agent.events;
     },
 
     calcMissedCalls(calls) {
