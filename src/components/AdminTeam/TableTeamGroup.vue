@@ -11,7 +11,7 @@
         >
           <div class="flex items-center">
             <span class="font-medium">{{
-              agent.surname + " " + agent.name + " " + agent.secondName
+              agent.surname + " " + agent.name
             }}</span>
           </div>
           <div
@@ -222,7 +222,7 @@
 </template>
 
 <script>
-import errors from '../../errors';
+import errors from "../../errors";
 export default {
   props: ["agents", "clients"],
   data: () => ({}),

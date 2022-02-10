@@ -371,7 +371,6 @@ export default {
           }
         });
 
-        console.log(this.agents);
         this.selectedAgent = this.agents[0];
       }
     },
@@ -379,37 +378,40 @@ export default {
     calculateStats(result, agentId) {
       const stats = {};
 
-      const proposedPath = result[agentId]["stats"]["proposed"];
-      const refusesPath = result[agentId]["stats"]["refuses"];
+      if (result[agentId]["stats"]["proposed"] != null) {
+        Object.keys(result[agentId]["stats"]["proposed"]).forEach((key) => {
+          const proposedPath = result[agentId]["stats"]["proposed"];
+          const month = key.substr(0, 7);
 
-      Object.keys(proposedPath).forEach((key) => {
-        const month = key.substr(0, 7);
+          if (stats[month]) {
+            stats[month]["proposed"] += proposedPath[key];
+          } else {
+            stats[month] = {
+              proposed: proposedPath[key],
+              refuses: 0,
+            };
+          }
+        });
+      }
 
-        if (stats[month]) {
-          stats[month]["proposed"] += proposedPath[key];
-        } else {
-          stats[month] = {
-            proposed: proposedPath[key],
-            refuses: 0,
-          };
-        }
-      });
+      if (result[agentId]["stats"]["refuses"] != null) {
+        Object.keys(result[agentId]["stats"]["refuses"]).forEach((key) => {
+          const refusesPath = result[agentId]["stats"]["refuses"];
+          const month = key.substr(0, 7);
 
-      Object.keys(refusesPath).forEach((key) => {
-        const month = key.substr(0, 7);
-
-        if (stats[month]) {
-          stats[month] = {
-            ...stats[month],
-            refuses: (stats[month]["refuses"] += refusesPath[key]),
-          };
-        } else {
-          stats[month] = {
-            proposed: 0,
-            refuses: refusesPath[key],
-          };
-        }
-      });
+          if (stats[month]) {
+            stats[month] = {
+              ...stats[month],
+              refuses: (stats[month]["refuses"] += refusesPath[key]),
+            };
+          } else {
+            stats[month] = {
+              proposed: 0,
+              refuses: refusesPath[key],
+            };
+          }
+        });
+      }
 
       return stats;
     },
@@ -417,10 +419,8 @@ export default {
     calculateEvents(result, agentId) {
       const events = {};
 
-      const proposedPath = result[agentId]["stats"]["proposed"];
-      const refusesPath = result[agentId]["stats"]["refuses"];
-
-      if (proposedPath) {
+      if (result[agentId]["stats"]["proposed"] != null) {
+        const proposedPath = result[agentId]["stats"]["proposed"];
         Object.keys(proposedPath).forEach((key) => {
           events[key] = {
             proposed: proposedPath[key],
@@ -429,7 +429,8 @@ export default {
         });
       }
 
-      if (refusesPath) {
+      if (result[agentId]["stats"]["refuses"] != null) {
+        const refusesPath = result[agentId]["stats"]["refuses"];
         Object.keys(refusesPath).forEach((key) => {
           if (events[key]) {
             events[key] = {

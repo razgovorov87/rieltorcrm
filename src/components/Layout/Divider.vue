@@ -1,5 +1,15 @@
 <template>
-  <div class="flex-shrink-0 w-divider bg-dividerBg h-full flex flex-col z-20">
+  <div
+    class="
+      flex-shrink-0
+      w-divider
+      bg-dividerBg
+      h-full
+      flex flex-col
+      z-20
+      overflow-y-auto
+    "
+  >
     <div class="logo h-divider flex-shrink-0"></div>
     <nav class="flex flex-col w-full items-center justify-start mt-2 flex-grow">
       <router-link
@@ -131,6 +141,7 @@
       </div>
 
       <router-link
+        v-if="checkAdmin"
         to="/calls"
         class="
           py-2
@@ -173,6 +184,7 @@
       </router-link>
 
       <router-link
+        v-if="checkAdmin"
         to="/agentsStats"
         class="
           py-2

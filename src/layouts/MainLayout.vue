@@ -1,5 +1,8 @@
 <template>
-  <div v-if="successloadingUser" class="flex h-screen bg-gray-100 relative">
+  <div
+    v-if="successloadingUser"
+    class="flex h-screen overflow-hidden bg-gray-100 relative"
+  >
     <Divider />
     <Header v-if="disableHeader" />
     <main

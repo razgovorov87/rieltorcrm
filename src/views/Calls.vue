@@ -314,7 +314,7 @@ export default {
       const notMissedCalls = calls["notMissedCalls"];
       const missedCalls = calls["missedCalls"];
       const percent = (notMissedCalls / (notMissedCalls + missedCalls)) * 100;
-      return `${percent}% (${notMissedCalls})`;
+      return `${percent.toFixed(2)}% (${notMissedCalls})`;
     },
 
     getMissedCallsFromStats() {
@@ -325,7 +325,7 @@ export default {
       const notMissedCalls = calls["notMissedCalls"];
       const missedCalls = calls["missedCalls"];
       const percent = (missedCalls / (notMissedCalls + missedCalls)) * 100;
-      return `${percent}% (${missedCalls})`;
+      return `${percent.toFixed(2)}% (${missedCalls})`;
     },
 
     getDay(date) {
