@@ -151,7 +151,7 @@
           </div>
         </div>
         <div class="text-gray-600 text-lg flex items-center mb-4">
-          <span class="mr-2 uppercase">#{{ client.id }}</span>
+          <span class="mr-2">#{{ client.id }}</span>
         </div>
         <div class="w-full flex flex-col mb-5">
           <span class="text-gray-600 text-sm">Клиенты</span>

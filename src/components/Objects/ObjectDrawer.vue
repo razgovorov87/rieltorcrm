@@ -214,7 +214,7 @@
 </template>
 
 <script>
-import errors from '../../errors';
+import errors from "../../errors";
 import MaskedInput from "vue-masked-input";
 import { CurrencyInput } from "vue-currency-input";
 export default {
@@ -294,6 +294,19 @@ export default {
     async saveChangeItem() {
       try {
         if (!this.formVerify) return;
+
+        const formData = {
+          adress: this.adress,
+          price: this.price,
+          room: this.room,
+          url: this.url,
+        };
+        await this.$store.dispatch("addNewObject", formData);
+        this.$toasts.push({
+          type: "success",
+          message: "Объект успешно добавлен",
+        });
+        this.$emit("addNewObject");
       } catch (e) {
         const msg = e.data["message"];
         if (msg) {

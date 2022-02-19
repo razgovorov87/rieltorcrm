@@ -134,7 +134,7 @@
           </div>
           <div
             v-if="openList"
-            class="absolute top-full h-20 w-full right-0 pt-2 z-30"
+            class="absolute top-full w-full right-0 pt-2 z-30"
             v-click-outside="
               () => {
                 openList = false;
@@ -144,12 +144,13 @@
             <div
               class="
                 bg-white
+                h-52
                 flex flex-col
                 border
                 rounded
                 shadow
                 border-gray-100
-                overflow-hidden
+                overflow-y-auto
               "
             >
               <span
